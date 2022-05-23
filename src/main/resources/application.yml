@@ -4,7 +4,7 @@ spring:
     password: 123456
     url: jdbc:mysql://localhost:3306/flea_market?useSSL=false&useUnicode=true&characterEncoding=UTF-8
     driver-class-name: com.mysql.cj.jdbc.Driver
-
+    type: com.alibaba.druid.pool.DruidDataSource
 server:
   port: 8000
 
