@@ -1,25 +1,20 @@
 package com.suda.fleamarket.enums;
 
+import com.baomidou.mybatisplus.annotation.EnumValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-@AllArgsConstructor
 @Getter
+
+@AllArgsConstructor
 public enum Gander {
     MALE(1, "男"),
     FEMALE(0, "女");
 
-    private final int ordinal;
+    @EnumValue
+    private final int sex;
     private final String text;
 
-    public static Gander get(int val) {
-        for (Gander gander : Gander.values()) {
-            if (gander.ordinal == val) {
-                return gander;
-            }
-        }
-        return null;
-    }
 
 
     @Override

@@ -10,11 +10,16 @@ server:
 
 mybatis-plus:
   configuration:
-    default-enum-type-handler: org.apache.ibatis.type.EnumOrdinalTypeHandler
+#    default-enum-type-handler: org.apache.ibatis.type.EnumOrdinalTypeHandler
     # 是否开启自动驼峰命名规则映射:从数据库列名到Java属性驼峰命名的类似映射
     map-underscore-to-camel-case: true
     # 如果查询结果中包含空值的列，则 MyBatis 在映射的时候，不会映射这个字段
     call-setters-on-nulls: true
-  mapper-locations: classpath:mybatis/mapper/*.xml
+    #添加日志
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   type-aliases-package: com.suda.fleamarket.entity
-
+  type-enums-package: com.suda.fleamarket.enums
+  global-config:
+    db-config:
+      logic-delete-field: is_deleted # 全局逻辑删除的实体字段名
+      id-type: assign_id
