@@ -37,11 +37,12 @@ public class JWTTest {
         JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256("i215s*F(@4hu#%saf14&")).build();
 
         //验证cookie
-        DecodedJWT verify = null;
+        DecodedJWT verify;
         try {
             verify = jwtVerifier.verify("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NTMzMTQxMzEsInVzZXJJZCI6MTIzLCJ1c2VybmFtZSI6IuW8oOS4iSJ9.3mhPzjJ5nv2DTFW7tDxlP2DbW9IEni_6PQ9fIzvcQ8U");
             System.out.println(verify.getClaim("userId"));
             System.out.println(verify.getClaim("username"));
+            System.out.println("过期时间: "+verify.getExpiresAt());
         } catch (JWTVerificationException e) {
             System.err.println("token已过期");
 //            throw new RuntimeException(e);
