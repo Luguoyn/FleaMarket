@@ -13,4 +13,6 @@ public interface SecurityService extends IService<Security> {
     Security login(String loginName, String password);
 
     Security register(String loginName, String password);
+
+    Security updatePassword(Long id, String oldPassword, String newPassword);
 }

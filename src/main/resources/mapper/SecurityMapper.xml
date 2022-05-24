@@ -16,11 +16,5 @@
         id,user_id,login_name,
         password,is_deleted
     </sql>
-    <select id="selectOneByLoginName" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from security
-        where
-        login_name = #{loginName,jdbcType=VARCHAR}
-    </select>
+
 </mapper>

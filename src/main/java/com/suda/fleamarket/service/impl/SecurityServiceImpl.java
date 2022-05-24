@@ -1,5 +1,6 @@
 package com.suda.fleamarket.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.suda.fleamarket.entity.Security;
 import com.suda.fleamarket.entity.User;
@@ -38,7 +39,6 @@ public class SecurityServiceImpl extends ServiceImpl<SecurityMapper, Security>
             throw new PasswordIncorrectException("密码错误");
         }
 
-        security.setPassword(MD5Utils.md5WithSalt(security.getPassword()));
 
         return security;
     }
@@ -56,7 +56,23 @@ public class SecurityServiceImpl extends ServiceImpl<SecurityMapper, Security>
         security.setPassword(MD5Utils.md5WithSalt(password));
         security.setUserId(user.getId());
         securityMapper.insert(security);
+
         return securityMapper.selectOneByLoginName(loginName);
+    }
+
+    @Override
+    public Security updatePassword(Long id, String oldPassword, String newPassword) {
+        Security security = securityMapper.selectById(id);
+
+        if (!security.getPassword().equals(MD5Utils.md5WithSalt(oldPassword))) {
+            throw new PasswordIncorrectException("旧密码错误");
+        }
+
+        security.setPassword(MD5Utils.md5WithSalt(newPassword));
+
+        updateById(security);
+
+        return security;
     }
 }
 

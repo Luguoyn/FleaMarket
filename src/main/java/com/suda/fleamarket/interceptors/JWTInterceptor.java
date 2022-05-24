@@ -5,6 +5,7 @@ import com.suda.fleamarket.exception.PasswordIncorrectException;
 import com.suda.fleamarket.exception.TokenNotExistException;
 import com.suda.fleamarket.service.SecurityService;
 import com.suda.fleamarket.utils.JWTUtils;
+import com.suda.fleamarket.utils.MD5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -24,9 +25,10 @@ public class JWTInterceptor implements HandlerInterceptor {
         }
         DecodedJWT decodedJWT = JWTUtils.verifyToken(token);
 
+
         // 判断密码是否被修改
         if (!decodedJWT.getClaim("password").asString()
-                .equals(securityService.getById(Long.parseLong(decodedJWT.getClaim("id").asString())).getPassword())) {
+                .equals(MD5Utils.md5WithSalt(securityService.getById(Long.parseLong(decodedJWT.getClaim("id").asString())).getPassword()))) {
             throw new PasswordIncorrectException("密码已被修改, token失效");
         }
 

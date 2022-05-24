@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,8 +40,12 @@ public class SecurityController {
      * 修改密码
      */
     @PostMapping("/update")
-    public ResultBody update(@RequestBody Map<String, Object> map) {
-        return null;
+    public ResultBody updatePassword(HttpServletRequest request, String oldPassword, String newPassword) {
+        return ResultBody.success()
+                .setMessage("密码修改成功")
+                .setData(JWTUtils.getToken(securityService.updatePassword(
+                        Long.parseLong(JWTUtils.verifyToken(request.getHeader("token")).getClaim("id").asString()),
+                        oldPassword, newPassword)));
     }
 
     // 这个方法应该会被拦下来
