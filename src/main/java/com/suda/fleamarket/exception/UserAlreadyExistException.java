@@ -5,11 +5,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * 密码不正确的异常, 用在密码验证失败或token的密码验证失败时
+ * 用户已存在, 用在注册时, 检测security表中的登录名.
  * */
+
 @Getter
 @Setter
-public class PasswordIncorrectException extends FMException{
+public class UserAlreadyExistException extends FMException{
     /**
      * 错误码
      */
@@ -17,29 +18,29 @@ public class PasswordIncorrectException extends FMException{
     /**
      * 错误信息
      */
-    protected String errorMsg = "密码错误";
+    protected String errorMsg = "用户已存在";
 
-    public PasswordIncorrectException() {
+    public UserAlreadyExistException() {
         super();
     }
 
-    public PasswordIncorrectException(ResultInfo errorInfo) {
+    public UserAlreadyExistException(ResultInfo errorInfo) {
         super(errorInfo);
     }
 
-    public PasswordIncorrectException(ResultInfo errorInfo, Throwable cause) {
+    public UserAlreadyExistException(ResultInfo errorInfo, Throwable cause) {
         super(errorInfo, cause);
     }
 
-    public PasswordIncorrectException(String errorMsg) {
+    public UserAlreadyExistException(String errorMsg) {
         super(errorMsg);
     }
 
-    public PasswordIncorrectException(String errorCode, String errorMsg) {
+    public UserAlreadyExistException(String errorCode, String errorMsg) {
         super(errorCode, errorMsg);
     }
 
-    public PasswordIncorrectException(String errorCode, String errorMsg, Throwable cause) {
+    public UserAlreadyExistException(String errorCode, String errorMsg, Throwable cause) {
         super(errorCode, errorMsg, cause);
     }
 

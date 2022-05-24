@@ -4,6 +4,9 @@ import com.suda.fleamarket.http.ResultInfo;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * 本项目的自定义异常
+ */
 @Getter
 @Setter
 public class FMException extends RuntimeException {

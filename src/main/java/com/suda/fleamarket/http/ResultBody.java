@@ -1,6 +1,5 @@
 package com.suda.fleamarket.http;
 
-import com.alibaba.fastjson.JSONObject;
 import com.suda.fleamarket.enums.StatusCode;
 import com.suda.fleamarket.utils.JSONUtils;
 import lombok.*;
