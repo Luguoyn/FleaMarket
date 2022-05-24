@@ -39,4 +39,8 @@ public class JWTUtils {
         return JWTUtils.getToken(payload);
     }
 
+    public static Long getUserIdFromToken(String token){
+        return Long.parseLong(verifyToken(token).getClaim("id").asString());
+    }
+
 }

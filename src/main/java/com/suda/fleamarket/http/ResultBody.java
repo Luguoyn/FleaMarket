@@ -12,7 +12,7 @@ public class ResultBody {
     /**
      * 响应代码
      */
-    private String code;
+    private int code;
 
     /**
      * 响应信息
@@ -25,7 +25,7 @@ public class ResultBody {
     private Object data;
 
 
-    public ResultBody setCode(String code) {
+    public ResultBody setCode(int code) {
         this.code = code;
         return this;
     }
@@ -69,7 +69,7 @@ public class ResultBody {
     /**
      * 失败
      */
-    public static ResultBody error(String code, String message) {
+    public static ResultBody error(int code, String message) {
         return new ResultBody().setCode(code).setMessage(message);
     }
 

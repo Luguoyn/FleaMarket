@@ -1,5 +1,6 @@
 package com.suda.fleamarket.exception;
 
+import com.suda.fleamarket.enums.StatusCode;
 import com.suda.fleamarket.http.ResultInfo;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,12 +10,11 @@ import lombok.Setter;
  * */
 
 @Getter
-@Setter
 public class UserNotExistException extends FMException{
     /**
      * 错误码
      */
-    protected String errorCode = "404";
+    protected int errorCode = StatusCode.NOT_FOUND.getResultCode();
     /**
      * 错误信息
      */
@@ -36,12 +36,24 @@ public class UserNotExistException extends FMException{
         super(errorMsg);
     }
 
-    public UserNotExistException(String errorCode, String errorMsg) {
+    public UserNotExistException(int errorCode, String errorMsg) {
         super(errorCode, errorMsg);
     }
 
-    public UserNotExistException(String errorCode, String errorMsg, Throwable cause) {
+    public UserNotExistException(int errorCode, String errorMsg, Throwable cause) {
         super(errorCode, errorMsg, cause);
+    }
+
+    @Override
+    public FMException setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
+        return this;
+    }
+
+    @Override
+    public FMException setErrorCode(int errorCode) {
+        this.errorCode = errorCode;
+        return this;
     }
 
     @Override

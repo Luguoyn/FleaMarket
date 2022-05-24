@@ -39,7 +39,6 @@ public class SecurityServiceImpl extends ServiceImpl<SecurityMapper, Security>
             throw new PasswordIncorrectException("密码错误");
         }
 
-
         return security;
     }
 

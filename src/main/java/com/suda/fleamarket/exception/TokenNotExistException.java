@@ -1,20 +1,19 @@
 package com.suda.fleamarket.exception;
 
+import com.suda.fleamarket.enums.StatusCode;
 import com.suda.fleamarket.http.ResultInfo;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
 public class TokenNotExistException extends FMException{
     /**
      * 错误码
      */
-    protected String errorCode = "403";
+    protected int errorCode = StatusCode.NOT_LOGGED_IN.getResultCode();
     /**
      * 错误信息
      */
-    protected String errorMsg = "未登录";
+    protected String errorMsg = StatusCode.NOT_LOGGED_IN.getResultMsg();
 
     public TokenNotExistException() {
         super();
@@ -32,12 +31,24 @@ public class TokenNotExistException extends FMException{
         super(errorMsg);
     }
 
-    public TokenNotExistException(String errorCode, String errorMsg) {
+    public TokenNotExistException(int errorCode, String errorMsg) {
         super(errorCode, errorMsg);
     }
 
-    public TokenNotExistException(String errorCode, String errorMsg, Throwable cause) {
+    public TokenNotExistException(int errorCode, String errorMsg, Throwable cause) {
         super(errorCode, errorMsg, cause);
+    }
+
+    @Override
+    public FMException setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
+        return this;
+    }
+
+    @Override
+    public FMException setErrorCode(int errorCode) {
+        this.errorCode = errorCode;
+        return this;
     }
 
     @Override

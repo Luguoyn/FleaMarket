@@ -8,11 +8,9 @@ import java.util.Date;
 import com.suda.fleamarket.enums.Authority;
 import com.suda.fleamarket.enums.Gander;
 import lombok.Data;
+import org.hibernate.validator.constraints.Range;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Past;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.*;
 
 /**
  * 
@@ -25,27 +23,30 @@ public class User implements Serializable {
      * 用户id
      */
     @TableId
+    @NotNull(message = "id不能为空")
     private Long id;
 
     /**
      * 用户名
      */
+    @NotBlank(message = "用户名不能为空")
     private String name;
 
     /**
      *  用户的权限, 用数字代替, 默认为最低权限
      */
-    private Authority authority = Authority.NOT_CERTIFIED;
+    private Authority authority;
 
     /**
      * 用户的生日
      */
+    @Past(message = "生日有误")
     private Date birthday;
 
     /**
      * 用户的性别, 0为女, 1位男
      */
-    private Gander gander = Gander.FEMALE;
+    private Gander gander;
 
     /**
      * 用户的地址
@@ -55,11 +56,14 @@ public class User implements Serializable {
     /**
      * 用户的电话
      */
+    @Pattern(regexp = "^((13\\d)|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\\d{8}$",
+            message = "错误的手机号码格式")
     private String telephone;
 
     /**
      * 用户的邮箱
      */
+    @Email(message = "错误的邮箱格式")
     private String email;
 
     /**

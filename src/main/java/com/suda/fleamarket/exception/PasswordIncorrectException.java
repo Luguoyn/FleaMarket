@@ -1,5 +1,6 @@
 package com.suda.fleamarket.exception;
 
+import com.suda.fleamarket.enums.StatusCode;
 import com.suda.fleamarket.http.ResultInfo;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,12 +9,11 @@ import lombok.Setter;
  * 密码不正确的异常, 用在密码验证失败或token的密码验证失败时
  * */
 @Getter
-@Setter
 public class PasswordIncorrectException extends FMException{
     /**
      * 错误码
      */
-    protected String errorCode = "403";
+    protected int errorCode = StatusCode.FORBIDDEN.getResultCode();
     /**
      * 错误信息
      */
@@ -35,12 +35,24 @@ public class PasswordIncorrectException extends FMException{
         super(errorMsg);
     }
 
-    public PasswordIncorrectException(String errorCode, String errorMsg) {
+    public PasswordIncorrectException(int errorCode, String errorMsg) {
         super(errorCode, errorMsg);
     }
 
-    public PasswordIncorrectException(String errorCode, String errorMsg, Throwable cause) {
+    public PasswordIncorrectException(int errorCode, String errorMsg, Throwable cause) {
         super(errorCode, errorMsg, cause);
+    }
+
+    @Override
+    public FMException setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
+        return this;
+    }
+
+    @Override
+    public FMException setErrorCode(int errorCode) {
+        this.errorCode = errorCode;
+        return this;
     }
 
     @Override

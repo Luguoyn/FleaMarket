@@ -1,5 +1,6 @@
 package com.suda.fleamarket.exception;
 
+import com.suda.fleamarket.enums.StatusCode;
 import com.suda.fleamarket.http.ResultInfo;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,29 +9,38 @@ import lombok.Setter;
  * 本项目的自定义异常
  */
 @Getter
-@Setter
 public class FMException extends RuntimeException {
     /**
      * 错误码
      */
-    protected String errorCode;
+    protected int errorCode = StatusCode.INTERNAL_SERVER_ERROR.getResultCode();
     /**
      * 错误信息
      */
-    protected String errorMsg;
+    protected String errorMsg = StatusCode.INTERNAL_SERVER_ERROR.getResultMsg();
+
+    public FMException setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
+        return this;
+    }
+
+    public FMException setErrorCode(int errorCode) {
+        this.errorCode = errorCode;
+        return this;
+    }
 
     public FMException() {
         super();
     }
 
     public FMException(ResultInfo errorInfo) {
-        super(errorInfo.getResultCode());
+        super(errorInfo.getResultMsg());
         this.errorCode = errorInfo.getResultCode();
         this.errorMsg = errorInfo.getResultMsg();
     }
 
     public FMException(ResultInfo errorInfo, Throwable cause) {
-        super(errorInfo.getResultCode(), cause);
+        super(errorInfo.getResultMsg(), cause);
         this.errorCode = errorInfo.getResultCode();
         this.errorMsg = errorInfo.getResultMsg();
     }
@@ -40,14 +50,14 @@ public class FMException extends RuntimeException {
         this.errorMsg = errorMsg;
     }
 
-    public FMException(String errorCode, String errorMsg) {
-        super(errorCode);
+    public FMException(int errorCode, String errorMsg) {
+        super(errorMsg);
         this.errorCode = errorCode;
         this.errorMsg = errorMsg;
     }
 
-    public FMException(String errorCode, String errorMsg, Throwable cause) {
-        super(errorCode, cause);
+    public FMException(int errorCode, String errorMsg, Throwable cause) {
+        super(errorMsg, cause);
         this.errorCode = errorCode;
         this.errorMsg = errorMsg;
     }

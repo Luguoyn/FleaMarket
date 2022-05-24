@@ -1,35 +1,43 @@
 package com.suda.fleamarket.controller;
 
 import com.auth0.jwt.exceptions.AlgorithmMismatchException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.suda.fleamarket.enums.StatusCode;
 import com.suda.fleamarket.exception.FMException;
 import com.suda.fleamarket.exception.PasswordIncorrectException;
 import com.suda.fleamarket.http.ResultBody;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * 全局异常处理
  */
 @RestControllerAdvice
 public class GlobalExceptionHandlerController {
-    @ExceptionHandler(SignatureVerificationException.class)
-    public ResultBody signatureVerificationExceptionHandler(HttpServletRequest request, SignatureVerificationException e) {
-        return ResultBody.error(StatusCode.FORBIDDEN).setMessage("签名无效");
+
+    /**
+     * token验证异常
+     */
+    @ExceptionHandler(JWTVerificationException.class)
+    public ResultBody jwtVerificationExceptionHandler(HttpServletRequest request, JWTVerificationException e) {
+        return ResultBody.error(StatusCode.NOT_LOGGED_IN).setMessage("token失效");
     }
 
-    @ExceptionHandler(TokenExpiredException.class)
-    public ResultBody tokenExpiredExceptionHandler(HttpServletRequest request, TokenExpiredException e) {
-        return ResultBody.error(StatusCode.FORBIDDEN).setMessage("token过期");
-    }
-
-    @ExceptionHandler(AlgorithmMismatchException.class)
-    public ResultBody algorithmMismatchExceptionHandler(HttpServletRequest request, AlgorithmMismatchException e) {
-        return ResultBody.error(StatusCode.FORBIDDEN).setMessage("算法无效");
+    /**
+     * 数据校验异常
+     */
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResultBody methodArgumentNotValidExceptionHandler(HttpServletRequest request, MethodArgumentNotValidException e) {
+        List<String> list = new LinkedList<>();
+        e.getBindingResult().getFieldErrors().forEach(err->list.add(err.getDefaultMessage()));
+        return ResultBody.error(StatusCode.BODY_NOT_MATCH).setData(list);
     }
 
     @ExceptionHandler(FMException.class)
