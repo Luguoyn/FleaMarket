@@ -1,21 +1,17 @@
-package com.suda.fleamarket.exception;
+package com.suda.fleamarket.exception.status400;
 
-import com.suda.fleamarket.enums.StatusCode;
 import com.suda.fleamarket.http.ResultInfo;
 import lombok.Getter;
-import lombok.Setter;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  * 用户已存在, 用在注册时, 检测security表中的登录名.
  * */
 
 @Getter
-
-public class UserAlreadyExistException extends FMException{
-    /**
-     * 错误码
-     */
-    protected int errorCode = StatusCode.FORBIDDEN.getResultCode();
+@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+public class UserAlreadyExistException extends FMBadRequestException {
     /**
      * 错误信息
      */
@@ -45,17 +41,6 @@ public class UserAlreadyExistException extends FMException{
         super(errorCode, errorMsg, cause);
     }
 
-    @Override
-    public FMException setErrorMsg(String errorMsg) {
-        this.errorMsg = errorMsg;
-        return this;
-    }
-
-    @Override
-    public FMException setErrorCode(int errorCode) {
-        this.errorCode = errorCode;
-        return this;
-    }
     @Override
     public synchronized Throwable fillInStackTrace() {
         return super.fillInStackTrace();

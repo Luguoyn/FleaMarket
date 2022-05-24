@@ -1,19 +1,23 @@
-package com.suda.fleamarket.exception;
+package com.suda.fleamarket.exception.status401;
 
 import com.suda.fleamarket.enums.StatusCode;
+import com.suda.fleamarket.exception.FMException;
 import com.suda.fleamarket.http.ResultInfo;
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Getter
-public class TokenNotExistException extends FMException{
+@ResponseStatus(code = HttpStatus.UNAUTHORIZED)
+public class TokenNotExistException extends FMException {
     /**
      * 错误码
      */
-    protected int errorCode = StatusCode.NOT_LOGGED_IN.getResultCode();
+    protected int errorCode = StatusCode.UNAUTHORIZED.getResultCode();
     /**
      * 错误信息
      */
-    protected String errorMsg = StatusCode.NOT_LOGGED_IN.getResultMsg();
+    protected String errorMsg = StatusCode.UNAUTHORIZED.getResultMsg();
 
     public TokenNotExistException() {
         super();
@@ -39,17 +43,6 @@ public class TokenNotExistException extends FMException{
         super(errorCode, errorMsg, cause);
     }
 
-    @Override
-    public FMException setErrorMsg(String errorMsg) {
-        this.errorMsg = errorMsg;
-        return this;
-    }
-
-    @Override
-    public FMException setErrorCode(int errorCode) {
-        this.errorCode = errorCode;
-        return this;
-    }
 
     @Override
     public synchronized Throwable fillInStackTrace() {

@@ -1,12 +1,11 @@
 package com.suda.fleamarket.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.suda.fleamarket.entity.Security;
 import com.suda.fleamarket.entity.User;
-import com.suda.fleamarket.exception.PasswordIncorrectException;
-import com.suda.fleamarket.exception.UserAlreadyExistException;
-import com.suda.fleamarket.exception.UserNotExistException;
+import com.suda.fleamarket.exception.status400.PasswordIncorrectException;
+import com.suda.fleamarket.exception.status400.UserAlreadyExistException;
+import com.suda.fleamarket.exception.status400.UserNotExistException;
 import com.suda.fleamarket.service.SecurityService;
 import com.suda.fleamarket.mapper.SecurityMapper;
 import com.suda.fleamarket.service.UserService;

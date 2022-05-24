@@ -1,11 +1,15 @@
-package com.suda.fleamarket.exception;
+package com.suda.fleamarket.exception.status500;
 
 import com.suda.fleamarket.enums.StatusCode;
+import com.suda.fleamarket.exception.FMException;
 import com.suda.fleamarket.http.ResultInfo;
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Getter
-public class UnsuccessfulOperationException extends FMException{
+@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
+public class UnsuccessfulOperationException extends FMInternalServerErrorException {
     /**
      * 错误码
      */
@@ -14,18 +18,6 @@ public class UnsuccessfulOperationException extends FMException{
      * 错误信息
      */
     protected String errorMsg = "操作失败";
-
-    @Override
-    public FMException setErrorMsg(String errorMsg) {
-        this.errorMsg = errorMsg;
-        return this;
-    }
-
-    @Override
-    public FMException setErrorCode(int errorCode) {
-        this.errorCode = errorCode;
-        return this;
-    }
 
     public UnsuccessfulOperationException() {
         super();

@@ -1,7 +1,5 @@
 package com.suda.fleamarket;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.suda.fleamarket.entity.User;
 import com.suda.fleamarket.enums.Authority;
 import com.suda.fleamarket.enums.Gander;

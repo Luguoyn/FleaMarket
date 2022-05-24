@@ -3,12 +3,14 @@ package com.suda.fleamarket.exception;
 import com.suda.fleamarket.enums.StatusCode;
 import com.suda.fleamarket.http.ResultInfo;
 import lombok.Getter;
-import lombok.Setter;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  * 本项目的自定义异常
  */
 @Getter
+@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
 public class FMException extends RuntimeException {
     /**
      * 错误码
@@ -19,15 +21,6 @@ public class FMException extends RuntimeException {
      */
     protected String errorMsg = StatusCode.INTERNAL_SERVER_ERROR.getResultMsg();
 
-    public FMException setErrorMsg(String errorMsg) {
-        this.errorMsg = errorMsg;
-        return this;
-    }
-
-    public FMException setErrorCode(int errorCode) {
-        this.errorCode = errorCode;
-        return this;
-    }
 
     public FMException() {
         super();

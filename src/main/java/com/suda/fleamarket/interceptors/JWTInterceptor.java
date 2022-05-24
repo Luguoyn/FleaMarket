@@ -1,8 +1,8 @@
 package com.suda.fleamarket.interceptors;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.suda.fleamarket.exception.PasswordIncorrectException;
-import com.suda.fleamarket.exception.TokenNotExistException;
+import com.suda.fleamarket.exception.status400.PasswordIncorrectException;
+import com.suda.fleamarket.exception.status401.TokenNotExistException;
 import com.suda.fleamarket.service.SecurityService;
 import com.suda.fleamarket.utils.JWTUtils;
 import com.suda.fleamarket.utils.MD5Utils;

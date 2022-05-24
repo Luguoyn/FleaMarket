@@ -1,8 +1,8 @@
 package com.suda.fleamarket.controller;
 
 import com.suda.fleamarket.entity.User;
-import com.suda.fleamarket.exception.UnsuccessfulOperationException;
-import com.suda.fleamarket.exception.UserNotExistException;
+import com.suda.fleamarket.exception.status500.UnsuccessfulOperationException;
+import com.suda.fleamarket.exception.status400.UserNotExistException;
 import com.suda.fleamarket.http.ResultBody;
 import com.suda.fleamarket.service.UserService;
 import com.suda.fleamarket.utils.JWTUtils;
