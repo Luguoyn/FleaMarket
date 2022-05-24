@@ -2,10 +2,14 @@ package com.suda.fleamarket.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.suda.fleamarket.entity.Security;
+import com.suda.fleamarket.entity.User;
 import com.suda.fleamarket.exception.PasswordIncorrectException;
+import com.suda.fleamarket.exception.UserAlreadyExistException;
 import com.suda.fleamarket.exception.UserNotExistException;
 import com.suda.fleamarket.service.SecurityService;
 import com.suda.fleamarket.mapper.SecurityMapper;
+import com.suda.fleamarket.service.UserService;
+import com.suda.fleamarket.utils.MD5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +24,9 @@ public class SecurityServiceImpl extends ServiceImpl<SecurityMapper, Security>
     @Autowired
     SecurityMapper securityMapper;
 
+    @Autowired
+    UserService userService;
+
     @Override
     public Security login(String loginName, String password) {
         Security security = securityMapper.selectOneByLoginName(loginName);
@@ -27,11 +34,29 @@ public class SecurityServiceImpl extends ServiceImpl<SecurityMapper, Security>
             throw new UserNotExistException("用户不存在");
         }
 
-        if (!security.getPassword().equals(password)) {
+        if (!security.getPassword().equals(MD5Utils.md5WithSalt(password))) {
             throw new PasswordIncorrectException("密码错误");
         }
 
+        security.setPassword(MD5Utils.md5WithSalt(security.getPassword()));
+
         return security;
+    }
+
+    @Override
+    public Security register(String loginName, String password) {
+        if (securityMapper.selectOneByLoginName(loginName) != null) {
+            throw new UserAlreadyExistException("账号名已存在");
+        }
+
+        User user = userService.createNewUser();
+
+        Security security = new Security();
+        security.setLoginName(loginName);
+        security.setPassword(MD5Utils.md5WithSalt(password));
+        security.setUserId(user.getId());
+        securityMapper.insert(security);
+        return securityMapper.selectOneByLoginName(loginName);
     }
 }
 

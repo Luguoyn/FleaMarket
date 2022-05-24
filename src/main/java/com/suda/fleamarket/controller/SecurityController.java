@@ -21,30 +21,25 @@ public class SecurityController {
     SecurityService securityService;
 
     // 这个方法不会被拦下来
-    @RequestMapping("/login")
+    @PostMapping("/login")
     public ResultBody login(String loginName, String password) {
-
-        //登录
-        Security security = securityService.login(loginName, password);
-        System.out.println("nnn");
-
-        //配置token
-        Map<String, String> payload = new HashMap<>();
-        payload.put("id", security.getId().toString());
-        payload.put("userId", security.getUserId().toString());
-        payload.put("password", MD5Utils.md5WithSalt(security.getPassword()));
-        String token = JWTUtils.getToken(payload);
-
-        return ResultBody.success().setMessage("登录成功").setData(token);
+        return ResultBody.success()
+                .setMessage("登录成功")
+                .setData(JWTUtils.getToken(securityService.login(loginName, password)));
     }
 
     @PostMapping("/register")
-    public ResultBody register() {
-        return null;
+    public ResultBody register(String loginName, String password) {
+        return ResultBody.success()
+                .setMessage("注册成功")
+                .setData(JWTUtils.getToken(securityService.register(loginName, password)));
     }
 
-    @PostMapping("/change-password")
-    public ResultBody changePassword(@RequestBody Map<String, Object> map) {
+    /**
+     * 修改密码
+     */
+    @PostMapping("/update")
+    public ResultBody update(@RequestBody Map<String, Object> map) {
         return null;
     }
 

@@ -1,4 +1,5 @@
 package com.suda.fleamarket.mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.suda.fleamarket.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
