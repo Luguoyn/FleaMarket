@@ -8,6 +8,7 @@ import com.suda.fleamarket.exception.status401.FMUnauthorizedException;
 import com.suda.fleamarket.exception.status500.FMInternalServerErrorException;
 import com.suda.fleamarket.http.ResultBody;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -30,6 +31,15 @@ public class GlobalExceptionHandlerController {
     @ExceptionHandler(JWTVerificationException.class)
     public ResultBody jwtVerificationExceptionHandler(HttpServletRequest request, JWTVerificationException e) {
         return ResultBody.error(StatusCode.UNAUTHORIZED).setMessage("token失效");
+    }
+
+    /**
+     * token验证异常
+     */
+    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public ResultBody httpRequestMethodNotSupportedExceptionHandler(HttpServletRequest request, HttpRequestMethodNotSupportedException e) {
+        return ResultBody.error(StatusCode.BAD_REQUEST).setMessage("请求有误");
     }
 
     /**
