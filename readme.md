@@ -5,3 +5,5 @@ suda软工实践-二手交易平台
 - springboot
 - mybatis-plus
 - lombok
+- Druid
+- JWT
