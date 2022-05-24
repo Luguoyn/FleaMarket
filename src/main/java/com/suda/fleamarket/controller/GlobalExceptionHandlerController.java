@@ -39,6 +39,7 @@ public class GlobalExceptionHandlerController {
 
     @ExceptionHandler(Exception.class)
     public ResultBody exceptionHandler(HttpServletRequest request, Exception e) {
+        e.printStackTrace();
         return ResultBody.error(StatusCode.INTERNAL_SERVER_ERROR);
     }
 

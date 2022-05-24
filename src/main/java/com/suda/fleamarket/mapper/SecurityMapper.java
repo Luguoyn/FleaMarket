@@ -1,4 +1,5 @@
 package com.suda.fleamarket.mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.suda.fleamarket.entity.Security;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -14,6 +15,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface SecurityMapper extends BaseMapper<Security> {
 
+    Security selectOneByLoginName(@Param("loginName") String loginName);
 }
 
 

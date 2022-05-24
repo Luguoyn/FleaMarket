@@ -22,6 +22,11 @@ public class UserServiceTests {
     }
 
     @Test
+    void testGet(){
+        System.out.println(userService.getById(1528707041789485057L));
+    }
+
+    @Test
     void testSave() {
         User user = new User();
         user.setAddress("美国");

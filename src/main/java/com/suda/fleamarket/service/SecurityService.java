@@ -9,5 +9,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 * @createDate 2022-05-23 18:58:09
 */
 public interface SecurityService extends IService<Security> {
-
+    Security login(String loginName, String password);
 }

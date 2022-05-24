@@ -21,4 +21,5 @@ public class ResultBodyTest {
         user.setEmail("Trump@suda.com");
         System.out.println(ResultBody.success(user));
     }
+
 }
