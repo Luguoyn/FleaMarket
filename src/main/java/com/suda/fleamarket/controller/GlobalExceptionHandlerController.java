@@ -4,6 +4,7 @@ import com.auth0.jwt.exceptions.AlgorithmMismatchException;
 import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.suda.fleamarket.enums.StatusCode;
+import com.suda.fleamarket.exception.FMException;
 import com.suda.fleamarket.exception.PasswordIncorrectException;
 import com.suda.fleamarket.http.ResultBody;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -31,8 +32,8 @@ public class GlobalExceptionHandlerController {
         return ResultBody.error(StatusCode.FORBIDDEN).setMessage("算法无效");
     }
 
-    @ExceptionHandler(PasswordIncorrectException.class)
-    public ResultBody passwordIncorrectExceptionHandler(HttpServletRequest request, PasswordIncorrectException e) {
+    @ExceptionHandler(FMException.class)
+    public ResultBody passwordIncorrectExceptionHandler(HttpServletRequest request, FMException e) {
         return ResultBody.error().setCode(e.getErrorCode()).setMessage(e.getMessage());
     }
 
