@@ -24,29 +24,4 @@
         picture,`description`,is_approved,
         is_deleted,version
     </sql>
-    <select id="getAllByUserId" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from goods
-        where
-        user_id = #{userId,jdbcType=NUMERIC}
-        AND is_deleted = 0
-    </select>
-    <select id="getAllByIsApproved" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from goods
-        where
-        is_approved = #{isApproved,jdbcType=NUMERIC}
-        AND is_deleted = 0
-    </select>
-    <select id="getAllByUserIdAndIsApproved" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from goods
-        where
-        user_id = #{userId,jdbcType=NUMERIC}
-        AND is_approved = #{isApproved,jdbcType=NUMERIC}
-        AND is_deleted = 0
-    </select>
 </mapper>

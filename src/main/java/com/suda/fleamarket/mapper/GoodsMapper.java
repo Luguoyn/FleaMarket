@@ -15,11 +15,6 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface GoodsMapper extends BaseMapper<Goods> {
-    List<Goods> getAllByUserId(@Param("userId") Long userId);
-
-    List<Goods> getAllByIsApproved(@Param("isApproved") Integer isApproved);
-
-    List<Goods> getAllByUserIdAndIsApproved(@Param("userId") Long userId, @Param("isApproved") Integer isApproved);
 }
 
 

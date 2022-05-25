@@ -24,17 +24,24 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods>
 
     @Override
     public List<Goods> listByUserId(Long userId) {
-        return goodsMapper.getAllByUserId(userId);
+        return goodsMapper.selectList(new LambdaQueryWrapper<Goods>()
+                .eq(Goods::getUserId, userId)
+        );
     }
 
     @Override
     public List<Goods> listByUserIdAndApproved(Long userId) {
-        return goodsMapper.getAllByUserIdAndIsApproved(userId, 1);
+        return goodsMapper.selectList(new LambdaQueryWrapper<Goods>()
+                .eq(Goods::getUserId, userId)
+                .eq(Goods::getIsApproved, 1)
+        );
     }
 
     @Override
     public List<Goods> listAllApproved() {
-        return goodsMapper.getAllByIsApproved(1);
+        return goodsMapper.selectList(new LambdaQueryWrapper<Goods>()
+                .eq(Goods::getIsApproved, 1)
+        );
     }
 
     @Override
@@ -71,6 +78,59 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods>
         Page<Goods> page = new Page<>(1, pageSize);
         goodsMapper.selectPage(page, new LambdaQueryWrapper<Goods>()
                 .eq(Goods::getIsApproved, 1)
+        );
+        return page.getPages();
+    }
+
+    @Override
+    public List<Goods> listAllNotApproved() {
+        return goodsMapper.selectList(new LambdaQueryWrapper<Goods>()
+                .eq(Goods::getIsApproved, 0)
+        );
+    }
+
+    @Override
+    public List<Goods> listByUserIdAndNotApproved(Long userId) {
+        return goodsMapper.selectList(new LambdaQueryWrapper<Goods>()
+                .eq(Goods::getUserId, userId)
+                .eq(Goods::getIsApproved, 0)
+        );
+    }
+
+    @Override
+    public List<Goods> listByUserIdAndNotApprovedWithPage(Long userId, long pageIndex, long pageSize) {
+        Page<Goods> page = new Page<>(pageIndex, pageSize);
+        goodsMapper.selectPage(page, new LambdaQueryWrapper<Goods>()
+                .eq(Goods::getUserId, userId)
+                .eq(Goods::getIsApproved, 0)
+        );
+        return page.getRecords();
+    }
+
+    @Override
+    public List<Goods> listAllNotApprovedWithPage(long pageIndex, long pageSize) {
+        Page<Goods> page = new Page<>(pageIndex, pageSize);
+        goodsMapper.selectPage(page, new LambdaQueryWrapper<Goods>()
+                .eq(Goods::getIsApproved, 0)
+        );
+        return page.getRecords();
+    }
+
+    @Override
+    public long getTotalPageCountByUserIdAndNotApproved(Long userId, long pageSize) {
+        Page<Goods> page = new Page<>(1, pageSize);
+        goodsMapper.selectPage(page, new LambdaQueryWrapper<Goods>()
+                .eq(Goods::getUserId, userId)
+                .eq(Goods::getIsApproved, 0)
+        );
+        return page.getPages();
+    }
+
+    @Override
+    public long getTotalPageCountNotApproved(long pageSize) {
+        Page<Goods> page = new Page<>(1, pageSize);
+        goodsMapper.selectPage(page, new LambdaQueryWrapper<Goods>()
+                .eq(Goods::getIsApproved, 0)
         );
         return page.getPages();
     }
