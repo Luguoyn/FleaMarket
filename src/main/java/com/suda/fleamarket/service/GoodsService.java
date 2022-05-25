@@ -42,4 +42,6 @@ public interface GoodsService extends IService<Goods> {
     long getTotalPageCountByUserId(Long userId, long pageSize);
 
     boolean removeByIdAndUserId(Long id, Long userId);
+
+    boolean saveByUserId(Goods goods, Long userId);
 }

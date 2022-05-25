@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.suda.fleamarket.entity.Goods;
+import com.suda.fleamarket.exception.status400.GoodsNotExistException;
 import com.suda.fleamarket.exception.status406.IllegalOperationException;
 import com.suda.fleamarket.service.GoodsService;
 import com.suda.fleamarket.mapper.GoodsMapper;
@@ -156,11 +157,35 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods>
 
     @Override
     public boolean removeByIdAndUserId(Long id, Long userId) {
-        if (!goodsMapper.selectById(id).getUserId().equals(userId)) {
+        Goods goods = goodsMapper.selectById(id);
+
+        if (goods == null) {
+            throw new GoodsNotExistException("待删除商品不存在");
+        }
+
+        if (!goods.getUserId().equals(userId)) {
             throw new IllegalOperationException("只能删除自己发布的商品");
         }
 
         return goodsMapper.deleteById(id) == 1;
+    }
+
+    @Override
+    public boolean saveByUserId(Goods goods, Long userId) {
+        Goods oldGoods = goodsMapper.selectById(goods.getId());
+
+        if (oldGoods == null) {
+            throw new GoodsNotExistException("待删除商品不存在");
+        }
+
+        if (!oldGoods.getUserId().equals(userId)) {
+            throw new IllegalOperationException("只能修改自己发布的商品");
+        }
+
+        goods.setUserId(userId);
+        goods.setIsApproved(oldGoods.getIsApproved());
+
+        return goodsMapper.updateById(goods) == 1;
     }
 }
 

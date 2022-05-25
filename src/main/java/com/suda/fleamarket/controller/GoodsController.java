@@ -89,4 +89,12 @@ public class GoodsController {
     public ResultBody deleteGoods(HttpServletRequest request, @PathVariable Long id) {
         return ResultBody.success().setData(goodsService.removeByIdAndUserId(id, JWTUtils.getUserIdFromToken(request.getHeader("token"))));
     }
+
+    /**
+     * 修改货物信息
+     */
+    @PostMapping("/update")
+    public ResultBody updateGoods(HttpServletRequest request, @RequestBody @Valid Goods goods) {
+        return ResultBody.success().setData(goodsService.saveByUserId(goods, JWTUtils.getUserIdFromToken(request.getHeader("token"))));
+    }
 }
