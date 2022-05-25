@@ -40,4 +40,6 @@ public interface GoodsService extends IService<Goods> {
     long getTotalPageCountNotApproved(long pageSize);
 
     long getTotalPageCountByUserId(Long userId, long pageSize);
+
+    boolean removeByIdAndUserId(Long id, Long userId);
 }

@@ -82,4 +82,11 @@ public class GoodsController {
         return ResultBody.success().setData(goodsService.save(goods));
     }
 
+    /**
+     * 删除货物
+     */
+    @PostMapping("/delete/{id}")
+    public ResultBody deleteGoods(HttpServletRequest request, @PathVariable Long id) {
+        return ResultBody.success().setData(goodsService.removeByIdAndUserId(id, JWTUtils.getUserIdFromToken(request.getHeader("token"))));
+    }
 }

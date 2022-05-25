@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.suda.fleamarket.entity.Goods;
+import com.suda.fleamarket.exception.status406.IllegalOperationException;
 import com.suda.fleamarket.service.GoodsService;
 import com.suda.fleamarket.mapper.GoodsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -151,6 +152,15 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods>
                 .eq(Goods::getUserId, userId)
         );
         return page.getPages();
+    }
+
+    @Override
+    public boolean removeByIdAndUserId(Long id, Long userId) {
+        if (!goodsMapper.selectById(id).getUserId().equals(userId)) {
+            throw new IllegalOperationException("只能删除自己发布的商品");
+        }
+
+        return goodsMapper.deleteById(id) == 1;
     }
 }
 
