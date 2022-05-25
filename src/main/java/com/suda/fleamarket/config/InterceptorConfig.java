@@ -3,6 +3,7 @@ package com.suda.fleamarket.config;
 import com.suda.fleamarket.interceptors.JWTInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -26,5 +27,16 @@ public class InterceptorConfig implements WebMvcConfigurer {
                         "/goods/list/**", "/goods/list-u/*", "/goods/info/**",
                         "/user/info/*"
                 );
+    }
+
+    // 实现请求跨域
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOriginPatterns("*")
+                .allowedHeaders("*")
+                .allowedMethods("*")
+                .allowCredentials(true)
+                .maxAge(3600);
     }
 }
