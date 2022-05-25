@@ -19,7 +19,7 @@ public class GoodsController {
 
     @PostMapping("/all")
     public ResultBody getAllGoods() {
-        return ResultBody.success().setData(goodsService.listByApproved());
+        return ResultBody.success().setData(goodsService.listAllApproved());
     }
 
     @PostMapping("/u/{userId}")

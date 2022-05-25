@@ -1,5 +1,7 @@
 package com.suda.fleamarket.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.suda.fleamarket.entity.Goods;
 import com.suda.fleamarket.service.GoodsService;
@@ -31,8 +33,46 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods>
     }
 
     @Override
-    public List<Goods> listByApproved() {
+    public List<Goods> listAllApproved() {
         return goodsMapper.getAllByIsApproved(1);
+    }
+
+    @Override
+    public List<Goods> listByUserIdAndApprovedWithPage(Long userId, long pageIndex, long pageSize) {
+        Page<Goods> page = new Page<>(pageIndex, pageSize);
+        goodsMapper.selectPage(page, new LambdaQueryWrapper<Goods>()
+                .eq(Goods::getUserId, userId)
+                .eq(Goods::getIsApproved, 1)
+        );
+        return page.getRecords();
+    }
+
+    @Override
+    public List<Goods> listAllApprovedWithPage(long pageIndex, long pageSize) {
+        Page<Goods> page = new Page<>(pageIndex, pageSize);
+        goodsMapper.selectPage(page, new LambdaQueryWrapper<Goods>()
+                .eq(Goods::getIsApproved, 1)
+        );
+        return page.getRecords();
+    }
+
+    @Override
+    public long getTotalPageCountByUserIdAndApproved(Long userId, long pageSize) {
+        Page<Goods> page = new Page<>(1, pageSize);
+        goodsMapper.selectPage(page, new LambdaQueryWrapper<Goods>()
+                .eq(Goods::getUserId, userId)
+                .eq(Goods::getIsApproved, 1)
+        );
+        return page.getPages();
+    }
+
+    @Override
+    public long getTotalPageCountApproved(long pageSize) {
+        Page<Goods> page = new Page<>(1, pageSize);
+        goodsMapper.selectPage(page, new LambdaQueryWrapper<Goods>()
+                .eq(Goods::getIsApproved, 1)
+        );
+        return page.getPages();
     }
 }
 
