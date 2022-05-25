@@ -29,6 +29,8 @@ public interface GoodsService extends IService<Goods> {
 
     List<Goods> listByUserIdAndNotApproved(Long userId);
 
+    List<Goods> listByUserIdWithPage(Long userId, long pageIndex, long pageSize);
+
     List<Goods> listByUserIdAndNotApprovedWithPage(Long userId, long pageIndex, long pageSize);
 
     List<Goods> listAllNotApprovedWithPage(long pageIndex, long pageSize);
@@ -36,4 +38,6 @@ public interface GoodsService extends IService<Goods> {
     long getTotalPageCountByUserIdAndNotApproved(Long userId, long pageSize);
 
     long getTotalPageCountNotApproved(long pageSize);
+
+    long getTotalPageCountByUserId(Long userId, long pageSize);
 }

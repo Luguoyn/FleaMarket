@@ -1,9 +1,6 @@
 package com.suda.fleamarket.config;
 
 import com.suda.fleamarket.interceptors.JWTInterceptor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.reactive.context.AnnotationConfigReactiveWebApplicationContext;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -26,7 +23,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
                 .addPathPatterns("/**") //拦截
                 .excludePathPatterns(
                         "/security/register", "/security/login",
-                        "/goods/all", "/goods/u/*",
+                        "/goods/list/**", "/goods/list-u/*", "/goods/info/**",
                         "/user/info/*"
                 );
     }

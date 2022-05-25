@@ -98,6 +98,15 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods>
     }
 
     @Override
+    public List<Goods> listByUserIdWithPage(Long userId, long pageIndex, long pageSize) {
+        Page<Goods> page = new Page<>(1, pageSize);
+        goodsMapper.selectPage(page, new LambdaQueryWrapper<Goods>()
+                .eq(Goods::getUserId, userId)
+        );
+        return page.getRecords();
+    }
+
+    @Override
     public List<Goods> listByUserIdAndNotApprovedWithPage(Long userId, long pageIndex, long pageSize) {
         Page<Goods> page = new Page<>(pageIndex, pageSize);
         goodsMapper.selectPage(page, new LambdaQueryWrapper<Goods>()
@@ -131,6 +140,15 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods>
         Page<Goods> page = new Page<>(1, pageSize);
         goodsMapper.selectPage(page, new LambdaQueryWrapper<Goods>()
                 .eq(Goods::getIsApproved, 0)
+        );
+        return page.getPages();
+    }
+
+    @Override
+    public long getTotalPageCountByUserId(Long userId, long pageSize) {
+        Page<Goods> page = new Page<>(1, pageSize);
+        goodsMapper.selectPage(page, new LambdaQueryWrapper<Goods>()
+                .eq(Goods::getUserId, userId)
         );
         return page.getPages();
     }
