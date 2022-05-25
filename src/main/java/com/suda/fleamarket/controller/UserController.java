@@ -8,10 +8,7 @@ import com.suda.fleamarket.service.UserService;
 import com.suda.fleamarket.utils.JWTUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -24,8 +21,11 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @PostMapping("/info")
-    public ResultBody getUserInfo(Long userId) {
+    /**
+     * 查询user信息
+     */
+    @PostMapping("/info/{userId}")
+    public ResultBody getUserInfo(@PathVariable Long userId) {
         User user = userService.getById(userId);
         if (user == null) {
             throw new UserNotExistException("用户不存在");
@@ -33,6 +33,17 @@ public class UserController {
         return ResultBody.success().setData(user);
     }
 
+    /**
+     * 查询当前user信息
+     */
+    @PostMapping("/info")
+    public ResultBody getUserInfo(HttpServletRequest request) {
+        return getUserInfo(JWTUtils.getUserIdFromToken(request.getHeader("token")));
+    }
+
+    /**
+     * 更新user信息
+     */
     @PostMapping("/update")
     public ResultBody updateUserInfo(HttpServletRequest request, @Valid @RequestBody User user) {
         user.setId(JWTUtils.getUserIdFromToken(request.getHeader("token")));

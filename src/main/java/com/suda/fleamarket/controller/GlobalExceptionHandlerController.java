@@ -34,7 +34,7 @@ public class GlobalExceptionHandlerController {
     }
 
     /**
-     * token验证异常
+     * 请求异常
      */
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
