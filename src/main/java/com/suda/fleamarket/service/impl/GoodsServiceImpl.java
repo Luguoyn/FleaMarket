@@ -7,6 +7,8 @@ import com.suda.fleamarket.mapper.GoodsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author 32488
  * @description 针对表【goods】的数据库操作Service实现
@@ -17,6 +19,21 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods>
         implements GoodsService {
     @Autowired
     GoodsMapper goodsMapper;
+
+    @Override
+    public List<Goods> listByUserId(Long userId) {
+        return goodsMapper.getAllByUserId(userId);
+    }
+
+    @Override
+    public List<Goods> listByUserIdAndApproved(Long userId) {
+        return goodsMapper.getAllByUserIdAndIsApproved(userId, 1);
+    }
+
+    @Override
+    public List<Goods> listByApproved() {
+        return goodsMapper.getAllByIsApproved(1);
+    }
 }
 
 

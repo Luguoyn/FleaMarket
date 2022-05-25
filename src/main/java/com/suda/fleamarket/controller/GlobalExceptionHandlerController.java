@@ -27,7 +27,7 @@ public class GlobalExceptionHandlerController {
     @ResponseStatus(code = HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(JWTVerificationException.class)
     public ResultBody jwtVerificationExceptionHandler(HttpServletRequest request, JWTVerificationException e) {
-        return ResultBody.error(HttpStatus.UNAUTHORIZED).setMessage("token失效");
+        return ResultBody.error(HttpStatus.UNAUTHORIZED).setMessage("token失效").setData(e.getClass());
     }
 
     /**
@@ -36,7 +36,7 @@ public class GlobalExceptionHandlerController {
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public ResultBody httpRequestMethodNotSupportedExceptionHandler(HttpServletRequest request, HttpRequestMethodNotSupportedException e) {
-        return ResultBody.error(HttpStatus.BAD_REQUEST).setMessage("请求有误");
+        return ResultBody.error(HttpStatus.BAD_REQUEST).setMessage("请求有误").setData(e.getClass());
     }
 
     /**
@@ -55,7 +55,7 @@ public class GlobalExceptionHandlerController {
      */
     @ExceptionHandler(FMException.class)
     public ResponseEntity<ResultBody> fmExceptionHandler(HttpServletRequest request, FMException e) {
-        return new ResponseEntity<>(ResultBody.error().setCode(e.getStatus().value()).setMessage(e.getMessage()), e.getStatus());
+        return new ResponseEntity<>(ResultBody.error().setCode(e.getStatus().value()).setMessage(e.getMessage()).setData(e.getClass()), e.getStatus());
     }
 
     /**

@@ -19,9 +19,31 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,user_id,name,
+        id,user_id,`name`,
         release_time,remaining_quantity,price,
         picture,`description`,is_approved,
         is_deleted,version
     </sql>
+    <select id="getAllByUserId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from goods
+        where
+        user_id = #{userId,jdbcType=NUMERIC}
+    </select>
+    <select id="getAllByIsApproved" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from goods
+        where
+        is_approved = #{isApproved,jdbcType=NUMERIC}
+    </select>
+    <select id="getAllByUserIdAndIsApproved" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from goods
+        where
+        user_id = #{userId,jdbcType=NUMERIC}
+        AND is_approved = #{isApproved,jdbcType=NUMERIC}
+    </select>
 </mapper>

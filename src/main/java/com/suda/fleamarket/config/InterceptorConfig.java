@@ -26,7 +26,8 @@ public class InterceptorConfig implements WebMvcConfigurer {
                 .addPathPatterns("/**") //拦截
                 .excludePathPatterns(
                         "/security/register", "/security/login",
-                        "/goods/all", "/user/info/*"
+                        "/goods/all", "/goods/u/*",
+                        "/user/info/*"
                 );
     }
 }

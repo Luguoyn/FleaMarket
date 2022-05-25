@@ -8,6 +8,8 @@ import java.util.Date;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 /**
  * 
@@ -20,13 +22,11 @@ public class Goods implements Serializable {
      * 商品的id
      */
     @TableId
-    @NotBlank(message = "商品id不能为空")
     private Long id;
 
     /**
      * 发布者的id
      */
-    @NotBlank(message = "商品发布者id不能为空")
     private Long userId;
 
     /**
@@ -43,11 +43,14 @@ public class Goods implements Serializable {
     /**
      * 商品的余量
      */
+    @NotNull(message = "商品的余量不能为空")
+    @Positive(message = "余量必须为正")
     private Integer remainingQuantity;
 
     /**
      * 商品的价格
      */
+    @NotNull(message = "商品的价格不能为空")
     private BigDecimal price;
 
     /**
@@ -58,12 +61,12 @@ public class Goods implements Serializable {
     /**
      * 商品的描述
      */
-    private String description;
+    private String description = "暂无描述";
 
     /**
      * 是否已审核, 0为否, 1为是
      */
-    private Integer isApproved;
+    private Integer isApproved = 1;
 
     /**
      * 是否被逻辑删除, 0为否, 1为是

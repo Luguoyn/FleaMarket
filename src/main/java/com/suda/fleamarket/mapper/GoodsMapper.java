@@ -1,4 +1,6 @@
 package com.suda.fleamarket.mapper;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 import com.suda.fleamarket.entity.Goods;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -13,7 +15,11 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface GoodsMapper extends BaseMapper<Goods> {
+    List<Goods> getAllByUserId(@Param("userId") Long userId);
 
+    List<Goods> getAllByIsApproved(@Param("isApproved") Integer isApproved);
+
+    List<Goods> getAllByUserIdAndIsApproved(@Param("userId") Long userId, @Param("isApproved") Integer isApproved);
 }
 
 

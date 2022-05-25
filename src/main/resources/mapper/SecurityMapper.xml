@@ -14,7 +14,7 @@
 
     <sql id="Base_Column_List">
         id,user_id,login_name,
-        password,is_deleted
+        `password`,is_deleted
     </sql>
 
 </mapper>
