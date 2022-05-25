@@ -1,8 +1,8 @@
 package com.suda.fleamarket.http;
 
-import com.suda.fleamarket.enums.StatusCode;
 import com.suda.fleamarket.utils.JSONUtils;
 import lombok.*;
+import org.springframework.http.HttpStatus;
 
 @Getter
 @NoArgsConstructor
@@ -40,16 +40,16 @@ public class ResultBody {
         return this;
     }
 
-    public ResultBody(ResultInfo resultInfo) {
-        this.code = resultInfo.getResultCode();
-        this.message = resultInfo.getResultMsg();
+    public ResultBody(HttpStatus status) {
+        this.code = status.value();
+        this.message = status.getReasonPhrase();
     }
 
     /**
      * 成功
      */
     public static ResultBody success(Object data) {
-        return new ResultBody(StatusCode.SUCCESS).setData(data);
+        return new ResultBody(HttpStatus.OK).setData(data);
     }
 
     /**
@@ -62,8 +62,8 @@ public class ResultBody {
     /**
      * 失败
      */
-    public static ResultBody error(ResultInfo errorInfo) {
-        return new ResultBody(errorInfo);
+    public static ResultBody error(HttpStatus status) {
+        return new ResultBody(status);
     }
 
     /**
@@ -77,7 +77,7 @@ public class ResultBody {
      * 失败
      */
     public static ResultBody error() {
-        return new ResultBody(StatusCode.INTERNAL_SERVER_ERROR);
+        return new ResultBody(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Override
