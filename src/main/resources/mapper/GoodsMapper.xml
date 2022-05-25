@@ -12,7 +12,7 @@
             <result property="remainingQuantity" column="remaining_quantity" jdbcType="INTEGER"/>
             <result property="price" column="price" jdbcType="DECIMAL"/>
             <result property="picture" column="picture" jdbcType="VARCHAR"/>
-            <result property="describe" column="describe" jdbcType="VARCHAR"/>
+            <result property="description" column="description" jdbcType="VARCHAR"/>
             <result property="isApproved" column="is_approved" jdbcType="INTEGER"/>
             <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
             <result property="version" column="version" jdbcType="INTEGER"/>
@@ -21,7 +21,7 @@
     <sql id="Base_Column_List">
         id,user_id,name,
         release_time,remaining_quantity,price,
-        picture,describe,is_approved,
+        picture,`description`,is_approved,
         is_deleted,version
     </sql>
 </mapper>

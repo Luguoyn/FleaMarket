@@ -11,7 +11,7 @@ import lombok.Data;
  * 
  * @TableName order
  */
-@TableName(value ="order")
+@TableName(value ="t_order")
 @Data
 public class Order implements Serializable {
     /**
@@ -38,7 +38,7 @@ public class Order implements Serializable {
     /**
      * 购买商品的数量
      */
-    private Integer number;
+    private Integer amount;
 
     /**
      * 下单时的价格

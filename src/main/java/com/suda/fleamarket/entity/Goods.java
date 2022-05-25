@@ -58,7 +58,7 @@ public class Goods implements Serializable {
     /**
      * 商品的描述
      */
-    private String describe;
+    private String description;
 
     /**
      * 是否已审核, 0为否, 1为是

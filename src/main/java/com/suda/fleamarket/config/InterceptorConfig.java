@@ -16,7 +16,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class InterceptorConfig implements WebMvcConfigurer {
 
     @Bean
-    public JWTInterceptor jwtInterceptor(){
+    public JWTInterceptor jwtInterceptor() {
         return new JWTInterceptor();
     }
 
@@ -24,6 +24,9 @@ public class InterceptorConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(jwtInterceptor())
                 .addPathPatterns("/**") //拦截
-                .excludePathPatterns("/security/register","/security/login");
+                .excludePathPatterns(
+                        "/security/register", "/security/login",
+                        "/goods/all", "/user/info/*"
+                );
     }
 }
