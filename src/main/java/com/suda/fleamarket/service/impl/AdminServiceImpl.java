@@ -68,8 +68,4 @@ public class AdminServiceImpl implements AdminService {
         );
     }
 
-    @Override
-    public List<Goods> listAll() {
-        return goodsMapper.selectList(null);
-    }
 }
