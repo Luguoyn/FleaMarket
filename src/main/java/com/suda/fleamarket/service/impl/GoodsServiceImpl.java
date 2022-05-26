@@ -183,7 +183,7 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods>
         }
 
         goods.setUserId(userId);
-        goods.setIsApproved(oldGoods.getIsApproved());
+        goods.setIsApproved(0);
 
         return goodsMapper.updateById(goods) == 1;
     }
