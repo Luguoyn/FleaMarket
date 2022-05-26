@@ -5,11 +5,7 @@ import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
 @Getter
-public class TokenNotExistException extends FMException {
-    /**
-     * 错误码
-     */
-    protected final HttpStatus status = HttpStatus.UNAUTHORIZED;
+public class TokenNotExistException extends FMUnauthorizedException {
     /**
      * 错误信息
      */

@@ -9,10 +9,6 @@ import org.springframework.http.HttpStatus;
 @Getter
 public class PasswordIncorrectException extends FMBadRequestException {
     /**
-     * 错误码
-     */
-    protected final HttpStatus status = HttpStatus.BAD_REQUEST;
-    /**
      * 错误信息
      */
     protected String message = "密码错误";

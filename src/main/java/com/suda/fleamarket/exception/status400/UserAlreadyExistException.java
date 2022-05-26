@@ -10,10 +10,6 @@ import org.springframework.http.HttpStatus;
 @Getter
 public class UserAlreadyExistException extends FMBadRequestException {
     /**
-     * 错误码
-     */
-    protected final HttpStatus status = HttpStatus.BAD_REQUEST;
-    /**
      * 错误信息
      */
     protected String message = "用户已存在";

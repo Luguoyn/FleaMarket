@@ -6,10 +6,6 @@ import org.springframework.http.HttpStatus;
 @Getter
 public class ResourcesNotFountException extends FMNotFoundException{
     /**
-     * 错误码
-     */
-    protected final HttpStatus status = HttpStatus.NOT_FOUND;
-    /**
      * 错误信息
      */
     protected String message = "资源不存在";
