@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.suda.fleamarket.entity.Goods;
-import com.suda.fleamarket.exception.status400.GoodsNotExistException;
+import com.suda.fleamarket.exception.status404.ResourcesNotFountException;
 import com.suda.fleamarket.exception.status406.IllegalOperationException;
 import com.suda.fleamarket.service.GoodsService;
 import com.suda.fleamarket.mapper.GoodsMapper;
@@ -160,7 +160,7 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods>
         Goods goods = goodsMapper.selectById(id);
 
         if (goods == null) {
-            throw new GoodsNotExistException("待删除商品不存在");
+            throw new ResourcesNotFountException("待删除商品不存在");
         }
 
         if (!goods.getUserId().equals(userId)) {
@@ -175,7 +175,7 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods>
         Goods oldGoods = goodsMapper.selectById(goods.getId());
 
         if (oldGoods == null) {
-            throw new GoodsNotExistException("待删除商品不存在");
+            throw new ResourcesNotFountException("待修改商品不存在");
         }
 
         if (!oldGoods.getUserId().equals(userId)) {

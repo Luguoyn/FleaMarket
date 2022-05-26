@@ -1,6 +1,7 @@
 package com.suda.fleamarket.controller;
 
 import com.suda.fleamarket.entity.Goods;
+import com.suda.fleamarket.exception.status404.ResourcesNotFountException;
 import com.suda.fleamarket.http.ResultBody;
 import com.suda.fleamarket.service.GoodsService;
 import com.suda.fleamarket.utils.DataUtils;
@@ -31,7 +32,11 @@ public class GoodsController {
      */
     @PostMapping("/info/{id}")
     public ResultBody getGoodsInfo(@PathVariable long id) {
-        return ResultBody.success().setData(goodsService.getById(id));
+        Goods goods = goodsService.getById(id);
+        if(goods == null){
+            throw new ResourcesNotFountException("货物不存在");
+        }
+        return ResultBody.success().setData(goods);
     }
 
     /**

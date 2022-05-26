@@ -1,6 +1,7 @@
 package com.suda.fleamarket.controller;
 
 import com.suda.fleamarket.entity.User;
+import com.suda.fleamarket.exception.status404.ResourcesNotFountException;
 import com.suda.fleamarket.exception.status500.UnsuccessfulOperationException;
 import com.suda.fleamarket.exception.status400.UserNotExistException;
 import com.suda.fleamarket.http.ResultBody;
@@ -28,7 +29,7 @@ public class UserController {
     public ResultBody getUserInfo(@PathVariable Long userId) {
         User user = userService.getById(userId);
         if (user == null) {
-            throw new UserNotExistException("用户不存在");
+            throw new ResourcesNotFountException("用户不存在");
         }
         return ResultBody.success().setData(user);
     }
