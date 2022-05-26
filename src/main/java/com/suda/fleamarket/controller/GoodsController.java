@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import javax.validation.constraints.Positive;
 
 @RestController
 @RequestMapping("/goods")
@@ -31,7 +32,7 @@ public class GoodsController {
      * 给出单个货物信息
      */
     @PostMapping("/info/{id}")
-    public ResultBody getGoodsInfo(@PathVariable long id) {
+    public ResultBody getGoodsInfo(@PathVariable Long id) {
         Goods goods = goodsService.getById(id);
         if(goods == null){
             throw new ResourcesNotFountException("货物不存在");
