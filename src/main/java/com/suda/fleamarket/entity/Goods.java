@@ -66,7 +66,7 @@ public class Goods implements Serializable {
     /**
      * 是否已审核, 0为否, 1为是
      */
-    private Integer isApproved = 1;
+    private Integer isApproved = 0;
 
     /**
      * 是否被逻辑删除, 0为否, 1为是
