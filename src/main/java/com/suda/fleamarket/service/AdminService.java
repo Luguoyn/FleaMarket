@@ -18,6 +18,8 @@ public interface AdminService {
 
     List<Goods> listByUserIdAndNotApproved(Long userId);
 
+    List<Goods> listAll();
+
     //TODO 添加修改用户权限的功能
     //TODO 添加审核商品的功能
 

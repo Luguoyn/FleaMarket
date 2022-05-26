@@ -67,4 +67,9 @@ public class AdminServiceImpl implements AdminService {
                 .eq(Goods::getIsApproved, 0)
         );
     }
+
+    @Override
+    public List<Goods> listAll() {
+        return goodsMapper.selectList(null);
+    }
 }
