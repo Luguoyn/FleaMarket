@@ -15,7 +15,7 @@ public class IllegalOperationException extends FMNotAcceptableException {
     }
 
     public IllegalOperationException(String message) {
-        super(message);
+        this.message = message;
     }
 
     @Override

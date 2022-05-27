@@ -16,7 +16,7 @@ public class FMUnauthorizedException extends FMException {
     }
 
     public FMUnauthorizedException(String message) {
-        super(message);
+        this.message = message;
     }
 
 

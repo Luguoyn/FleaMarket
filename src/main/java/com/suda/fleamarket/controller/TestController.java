@@ -1,8 +1,6 @@
 package com.suda.fleamarket.controller;
 
-import com.suda.fleamarket.entity.User;
 import com.suda.fleamarket.http.ResultBody;
-import com.suda.fleamarket.utils.JSONUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

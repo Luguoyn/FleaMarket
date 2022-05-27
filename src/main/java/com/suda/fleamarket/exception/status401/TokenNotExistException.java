@@ -17,7 +17,7 @@ public class TokenNotExistException extends FMUnauthorizedException {
 
 
     public TokenNotExistException(String message) {
-        super(message);
+        this.message = message;
     }
 
 

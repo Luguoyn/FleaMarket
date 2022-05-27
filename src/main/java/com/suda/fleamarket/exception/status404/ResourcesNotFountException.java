@@ -15,7 +15,7 @@ public class ResourcesNotFountException extends FMNotFoundException{
     }
 
     public ResourcesNotFountException(String message) {
-        super(message);
+        this.message = message;
     }
 
     @Override

@@ -19,7 +19,7 @@ public class UserNotExistException extends FMBadRequestException {
     }
 
     public UserNotExistException(String message) {
-        super(message);
+        this.message = message;
     }
 
     @Override

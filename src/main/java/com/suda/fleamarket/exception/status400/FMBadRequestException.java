@@ -16,7 +16,7 @@ public class FMBadRequestException extends FMException {
     }
 
     public FMBadRequestException(String message) {
-        super(message);
+        this.message = message;
     }
 
     @Override

@@ -6,13 +6,11 @@ import com.suda.fleamarket.utils.DataUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-import javax.validation.constraints.Positive;
-import javax.xml.crypto.Data;
-
-@RestController("/admin")
+@RestController
+@RequestMapping("/admin")
 public class AdminController {
     @Autowired
     AdminService adminService;

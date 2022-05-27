@@ -19,7 +19,7 @@ public class UserAlreadyExistException extends FMBadRequestException {
     }
 
     public UserAlreadyExistException(String message) {
-        super(message);
+        this.message = message;
     }
 
     @Override

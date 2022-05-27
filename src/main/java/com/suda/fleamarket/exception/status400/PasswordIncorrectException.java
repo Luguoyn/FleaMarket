@@ -19,7 +19,7 @@ public class PasswordIncorrectException extends FMBadRequestException {
 
 
     public PasswordIncorrectException(String message) {
-        super(message);
+        this.message = message;
     }
 
     @Override

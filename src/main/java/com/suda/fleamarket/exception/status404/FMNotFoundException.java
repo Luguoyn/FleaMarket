@@ -16,7 +16,7 @@ public class FMNotFoundException extends FMException {
     }
 
     public FMNotFoundException(String message) {
-        super(message);
+        this.message = message;
     }
 
     @Override
