@@ -34,7 +34,7 @@ public class GoodsController {
     @PostMapping("/info/{id}")
     public ResultBody getGoodsInfo(@PathVariable Long id) {
         Goods goods = goodsService.getById(id);
-        if(goods == null){
+        if (goods == null) {
             throw new ResourcesNotFountException("货物不存在");
         }
         return ResultBody.success().setData(goods);
@@ -84,6 +84,7 @@ public class GoodsController {
     @PostMapping("/publish")
     public ResultBody publishGoods(HttpServletRequest request, @RequestBody @Valid Goods goods) {
         goods.setId(null);
+        goods.setIsApproved(0);
         goods.setUserId(JWTUtils.getUserIdFromToken(request.getHeader("token")));
         return ResultBody.success().setData(goodsService.save(goods));
     }
