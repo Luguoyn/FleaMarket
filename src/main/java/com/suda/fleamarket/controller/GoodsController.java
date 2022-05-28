@@ -60,7 +60,7 @@ public class GoodsController {
     @PostMapping("/list-u/{userId}")
     public ResultBody getAllGoodsFromUser(@CurrentUserId Long currentUserId, @PathVariable Long userId) {
         if (currentUserId.equals(userId))
-            return ResultBody.success().setData(goodsService.listByUserId(userId));
+            return getAllGoodsFromUser(currentUserId);
         else
             return ResultBody.success().setData(goodsService.listByUserIdAndApproved(userId));
     }
