@@ -3,7 +3,11 @@ package com.suda.fleamarket.entity;
 import com.baomidou.mybatisplus.annotation.*;
 
 import java.io.Serializable;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 
@@ -13,6 +17,9 @@ import javax.validation.constraints.NotBlank;
  */
 @TableName(value ="security")
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Security implements Serializable {
     /**
      * 密码表的id

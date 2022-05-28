@@ -49,11 +49,9 @@ public class SecurityServiceImpl extends ServiceImpl<SecurityMapper, Security>
 
         User user = userService.createNewUser();
 
-        Security security = new Security();
-        security.setLoginName(loginName);
-        security.setPassword(MD5Utils.md5WithSalt(password));
-        security.setUserId(user.getId());
-        securityMapper.insert(security);
+        securityMapper.insert(Security.builder()
+                .loginName(loginName).password(MD5Utils.md5WithSalt(password)).userId(user.getId())
+                .build());
 
         return securityMapper.selectOneByLoginName(loginName);
     }

@@ -29,10 +29,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 
     @Override
     public User createNewUser() {
-        User user = new User();
-        String name = String.valueOf(UUID.randomUUID());
-        user.setName(name);
-        return createNewUser(user);
+        return createNewUser(User.builder().name(String.valueOf(UUID.randomUUID())).build());
     }
 }
 

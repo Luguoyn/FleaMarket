@@ -5,7 +5,11 @@ import com.baomidou.mybatisplus.annotation.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 
@@ -13,6 +17,9 @@ import lombok.Data;
  */
 @TableName(value ="t_order")
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Order implements Serializable {
     /**
      * 订单表的id

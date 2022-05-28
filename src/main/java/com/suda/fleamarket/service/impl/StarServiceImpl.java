@@ -56,11 +56,7 @@ public class StarServiceImpl extends ServiceImpl<StarMapper, Star>
             throw new IllegalOperationException("已经收藏该商品了");
         }
 
-        Star star = new Star();
-        star.setUserId(userId);
-        star.setGoodId(goodId);
-
-        return starMapper.insert(star) == 1;
+        return starMapper.insert(Star.builder().userId(userId).goodId(goodId).build()) == 1;
     }
 
     @Override

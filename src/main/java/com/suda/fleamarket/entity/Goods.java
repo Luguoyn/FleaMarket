@@ -5,7 +5,11 @@ import com.baomidou.mybatisplus.annotation.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -17,6 +21,9 @@ import javax.validation.constraints.Positive;
  */
 @TableName(value ="goods")
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Goods implements Serializable {
     /**
      * 商品的id

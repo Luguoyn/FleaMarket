@@ -7,7 +7,10 @@ import java.util.Date;
 
 import com.suda.fleamarket.enums.Authority;
 import com.suda.fleamarket.enums.Gander;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.*;
@@ -18,6 +21,9 @@ import javax.validation.constraints.*;
  */
 @TableName(value ="user")
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class User implements Serializable {
     /**
      * 用户id
