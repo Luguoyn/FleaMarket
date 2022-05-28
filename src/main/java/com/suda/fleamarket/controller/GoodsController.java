@@ -84,6 +84,7 @@ public class GoodsController {
         goods.setId(null);
         goods.setIsApproved(0);
         goods.setUserId(currentUserId);
+        goods.setIsDeleted(0);
         return ResultBody.success().setData(goodsService.save(goods));
     }
 
