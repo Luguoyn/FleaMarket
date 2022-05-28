@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.*;
 import java.io.Serializable;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  * 
  * @TableName security
@@ -26,11 +28,13 @@ public class Security implements Serializable {
     /**
      * 用户登录名
      */
+    @NotBlank(message = "用户名不能为空")
     private String loginName;
 
     /**
      * 密码, 需要用md5加密
      */
+    @NotBlank(message = "密码不能为空")
     private String password;
 
     /**

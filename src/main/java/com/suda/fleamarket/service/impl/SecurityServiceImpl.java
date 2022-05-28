@@ -59,8 +59,8 @@ public class SecurityServiceImpl extends ServiceImpl<SecurityMapper, Security>
     }
 
     @Override
-    public Security updatePassword(Long id, String oldPassword, String newPassword) {
-        Security security = securityMapper.selectById(id);
+    public Security updatePassword(Long userId, String oldPassword, String newPassword) {
+        Security security = securityMapper.selectOneByUserId(userId);
 
         if (!security.getPassword().equals(MD5Utils.md5WithSalt(oldPassword))) {
             throw new PasswordIncorrectException("旧密码错误");
