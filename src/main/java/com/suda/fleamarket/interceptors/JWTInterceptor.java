@@ -32,6 +32,8 @@ public class JWTInterceptor implements HandlerInterceptor {
             throw new PasswordIncorrectException("密码已被修改, token失效");
         }
 
+        request.getSession().setAttribute("userId", decodedJWT.getClaim("userId").asString());
+
         return true;
     }
 }

@@ -1,17 +1,15 @@
 package com.suda.fleamarket.controller;
 
+import com.suda.fleamarket.anno.CurrentUserId;
 import com.suda.fleamarket.entity.User;
 import com.suda.fleamarket.exception.status404.ResourcesNotFountException;
 import com.suda.fleamarket.exception.status500.UnsuccessfulOperationException;
-import com.suda.fleamarket.exception.status400.UserNotExistException;
 import com.suda.fleamarket.http.ResultBody;
 import com.suda.fleamarket.service.UserService;
-import com.suda.fleamarket.utils.JWTUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Validated
@@ -38,16 +36,16 @@ public class UserController {
      * 查询当前user信息
      */
     @PostMapping("/info")
-    public ResultBody getUserInfo(HttpServletRequest request) {
-        return getUserInfo(JWTUtils.getUserIdFromToken(request.getHeader("token")));
+    public ResultBody getCurrentUserInfo(@CurrentUserId Long currentUserId) {
+        return getUserInfo(currentUserId);
     }
 
     /**
      * 更新user信息
      */
     @PostMapping("/update")
-    public ResultBody updateUserInfo(HttpServletRequest request, @Valid @RequestBody User user) {
-        user.setId(JWTUtils.getUserIdFromToken(request.getHeader("token")));
+    public ResultBody updateUserInfo(@CurrentUserId Long currentUserId, @Valid @RequestBody User user) {
+        user.setId(currentUserId);
         boolean flag = userService.saveOrUpdate(user);
         if (!flag) {
             throw new UnsuccessfulOperationException("更新用户信息失败");

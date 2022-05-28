@@ -1,6 +1,6 @@
 package com.suda.fleamarket.controller;
 
-import com.suda.fleamarket.entity.Security;
+import com.suda.fleamarket.anno.CurrentUserId;
 import com.suda.fleamarket.http.ResultBody;
 import com.suda.fleamarket.service.SecurityService;
 import com.suda.fleamarket.utils.JWTUtils;
@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/security")
@@ -36,11 +35,11 @@ public class SecurityController {
      * 修改密码
      */
     @PostMapping("/update")
-    public ResultBody updatePassword(HttpServletRequest request, String oldPassword, String newPassword) {
+    public ResultBody updatePassword(@CurrentUserId Long currentUserId, String oldPassword, String newPassword) {
         return ResultBody.success()
                 .setMessage("密码修改成功")
                 .setData(JWTUtils.getToken(securityService.updatePassword(
-                        JWTUtils.getUserIdFromToken(request.getHeader("token")),
+                        currentUserId,
                         oldPassword, newPassword)));
     }
 

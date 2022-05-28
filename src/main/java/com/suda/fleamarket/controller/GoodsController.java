@@ -1,17 +1,15 @@
 package com.suda.fleamarket.controller;
 
+import com.suda.fleamarket.anno.CurrentUserId;
 import com.suda.fleamarket.entity.Goods;
 import com.suda.fleamarket.exception.status404.ResourcesNotFountException;
 import com.suda.fleamarket.http.ResultBody;
 import com.suda.fleamarket.service.GoodsService;
 import com.suda.fleamarket.utils.DataUtils;
-import com.suda.fleamarket.utils.JWTUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import javax.validation.constraints.Positive;
 
 @RestController
 @RequestMapping("/goods")
@@ -52,16 +50,16 @@ public class GoodsController {
      * 给出当前登录用户的货物信息，包括未审核的货物
      */
     @PostMapping("/list-u")
-    public ResultBody getAllGoodsFromUser(HttpServletRequest request) {
-        return ResultBody.success().setData(goodsService.listByUserId(JWTUtils.getUserIdFromToken(request.getHeader("token"))));
+    public ResultBody getAllGoodsFromUser(@CurrentUserId Long currentUserId) {
+        return ResultBody.success().setData(goodsService.listByUserId(currentUserId));
     }
 
     /**
      * 给出某人的货物信息
      */
     @PostMapping("/list-u/{userId}")
-    public ResultBody getAllGoodsFromUser(HttpServletRequest request, @PathVariable Long userId) {
-        if (JWTUtils.getUserIdFromToken(request.getHeader("token")).equals(userId))
+    public ResultBody getAllGoodsFromUser(@CurrentUserId Long currentUserId, @PathVariable Long userId) {
+        if (currentUserId.equals(userId))
             return ResultBody.success().setData(goodsService.listByUserId(userId));
         else
             return ResultBody.success().setData(goodsService.listByUserIdAndApproved(userId));
@@ -71,8 +69,8 @@ public class GoodsController {
      * 给出某人的某页的货物信息
      */
     @PostMapping("/list-u/{userId}/p/{index}")
-    public ResultBody getAllGoodsFromUserWithPage(HttpServletRequest request, @PathVariable Long userId, @PathVariable long index) {
-        if (JWTUtils.getUserIdFromToken(request.getHeader("token")).equals(userId))
+    public ResultBody getAllGoodsFromUserWithPage(@CurrentUserId Long currentUserId, @PathVariable Long userId, @PathVariable long index) {
+        if (currentUserId.equals(userId))
             return ResultBody.success().setData(goodsService.listByUserIdWithPage(userId, index, DataUtils.PAGE_SIZE));
         else
             return ResultBody.success().setData(goodsService.listByUserIdAndApprovedWithPage(userId, index, DataUtils.PAGE_SIZE));
@@ -82,10 +80,10 @@ public class GoodsController {
      * 发布货物
      */
     @PostMapping("/publish")
-    public ResultBody publishGoods(HttpServletRequest request, @RequestBody @Valid Goods goods) {
+    public ResultBody publishGoods(@CurrentUserId Long currentUserId, @RequestBody @Valid Goods goods) {
         goods.setId(null);
         goods.setIsApproved(0);
-        goods.setUserId(JWTUtils.getUserIdFromToken(request.getHeader("token")));
+        goods.setUserId(currentUserId);
         return ResultBody.success().setData(goodsService.save(goods));
     }
 
@@ -93,15 +91,15 @@ public class GoodsController {
      * 删除货物
      */
     @PostMapping("/delete/{id}")
-    public ResultBody deleteGoods(HttpServletRequest request, @PathVariable Long id) {
-        return ResultBody.success().setData(goodsService.removeByIdAndUserId(id, JWTUtils.getUserIdFromToken(request.getHeader("token"))));
+    public ResultBody deleteGoods(@CurrentUserId Long currentUserId, @PathVariable Long id) {
+        return ResultBody.success().setData(goodsService.removeByIdAndUserId(id, currentUserId));
     }
 
     /**
      * 修改货物信息
      */
     @PostMapping("/update")
-    public ResultBody updateGoods(HttpServletRequest request, @RequestBody @Valid Goods goods) {
-        return ResultBody.success().setData(goodsService.saveByUserId(goods, JWTUtils.getUserIdFromToken(request.getHeader("token"))));
+    public ResultBody updateGoods(@CurrentUserId Long currentUserId, @RequestBody @Valid Goods goods) {
+        return ResultBody.success().setData(goodsService.saveByUserId(goods, currentUserId));
     }
 }
