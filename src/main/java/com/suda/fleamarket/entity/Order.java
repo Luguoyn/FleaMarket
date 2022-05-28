@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 
 /**
  * 
- * @TableName order
+ * @TableName t_order
  */
 @TableName(value ="t_order")
 @Data
