@@ -2,6 +2,7 @@ package com.suda.fleamarket.controller;
 
 import com.suda.fleamarket.http.ResultBody;
 import com.suda.fleamarket.service.AdminService;
+import com.suda.fleamarket.service.GoodsService;
 import com.suda.fleamarket.utils.DataUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,9 @@ public class AdminController {
     @Autowired
     AdminService adminService;
 
+    @Autowired
+    GoodsService goodsService;
+
     @PostMapping("/list-n")
     public ResultBody getAllGoodsNotApproved() {
         return ResultBody.success().setData(adminService.listAllNotApproved());
@@ -22,7 +26,7 @@ public class AdminController {
 
     @PostMapping("/list-u/{userId}")
     public ResultBody getGoodsByUserIdAndNotApproved(@PathVariable Long userId) {
-        return ResultBody.success().setData(adminService.listByUserIdAndNotApproved(userId));
+        return ResultBody.success().setData(goodsService.listByUserIdAndNotApproved(userId));
     }
 
     @PostMapping("/list-n/p/{index}")
@@ -32,7 +36,7 @@ public class AdminController {
 
     @PostMapping("/list-u/{userId}/p/{index}")
     public ResultBody getGoodsByUserIdAndNotApprovedWithPage(@PathVariable Long userId, @PathVariable long index) {
-        return ResultBody.success().setData(adminService.listByUserIdAndNotApprovedWithPage(userId, index, DataUtils.PAGE_SIZE));
+        return ResultBody.success().setData(goodsService.listByUserIdAndNotApprovedWithPage(userId, index, DataUtils.PAGE_SIZE));
     }
 
     @PostMapping("/approve/{goodId}")

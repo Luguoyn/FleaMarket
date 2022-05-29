@@ -48,16 +48,6 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public long getTotalPageCountByUserIdAndNotApproved(Long userId, long pageSize) {
-        Page<Goods> page = new Page<>(1, pageSize);
-        goodsMapper.selectPage(page, new LambdaQueryWrapper<Goods>()
-                .eq(Goods::getUserId, userId)
-                .eq(Goods::getIsApproved, 0)
-        );
-        return page.getPages();
-    }
-
-    @Override
     public long getTotalPageCountNotApproved(long pageSize) {
         Page<Goods> page = new Page<>(1, pageSize);
         goodsMapper.selectPage(page, new LambdaQueryWrapper<Goods>()
@@ -69,14 +59,6 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public List<Goods> listAllNotApproved() {
         return goodsMapper.selectList(new LambdaQueryWrapper<Goods>()
-                .eq(Goods::getIsApproved, 0)
-        );
-    }
-
-    @Override
-    public List<Goods> listByUserIdAndNotApproved(Long userId) {
-        return goodsMapper.selectList(new LambdaQueryWrapper<Goods>()
-                .eq(Goods::getUserId, userId)
                 .eq(Goods::getIsApproved, 0)
         );
     }

@@ -8,13 +8,11 @@ public interface AdminService {
 
     List<Goods> listAllNotApprovedWithPage(long pageIndex, long pageSize);
 
-    long getTotalPageCountByUserIdAndNotApproved(Long userId, long pageSize);
 
     long getTotalPageCountNotApproved(long pageSize);
 
     List<Goods> listAllNotApproved();
 
-    List<Goods> listByUserIdAndNotApproved(Long userId);
 
     List<Goods> listByUserIdAndNotApprovedWithPage(Long userId, long pageIndex, long pageSize);
 
