@@ -18,7 +18,7 @@ public interface AdminService {
 
     List<Goods> listByUserIdAndNotApprovedWithPage(Long userId, long pageIndex, long pageSize);
 
-    //TODO 添加修改用户权限的功能
-    //TODO 添加审核商品的功能
+    boolean setApproved(Long goodId, boolean isApproved);
 
+    //TODO 添加修改用户权限的功能
 }

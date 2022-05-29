@@ -34,4 +34,14 @@ public class AdminController {
     public ResultBody getGoodsByUserIdAndNotApprovedWithPage(@PathVariable Long userId, @PathVariable long index) {
         return ResultBody.success().setData(adminService.listByUserIdAndNotApprovedWithPage(userId, index, DataUtils.PAGE_SIZE));
     }
+
+    @PostMapping("/approve/{goodId}")
+    public ResultBody approve(@PathVariable Long goodId) {
+        return ResultBody.success().setData(adminService.setApproved(goodId, true));
+    }
+
+    @PostMapping("/anti-approve/{goodId}")
+    public ResultBody antiApprove(@PathVariable Long goodId) {
+        return ResultBody.success().setData(adminService.setApproved(goodId, false));
+    }
 }

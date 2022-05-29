@@ -3,6 +3,7 @@ package com.suda.fleamarket.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.suda.fleamarket.entity.Goods;
+import com.suda.fleamarket.exception.status404.ResourcesNotFountException;
 import com.suda.fleamarket.mapper.GoodsMapper;
 import com.suda.fleamarket.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,18 @@ public class AdminServiceImpl implements AdminService {
                 .eq(Goods::getIsApproved, 1)
         );
         return page.getRecords();
+    }
+
+    @Override
+    public boolean setApproved(Long goodId, boolean isApproved) {
+        Goods goods = goodsMapper.selectById(goodId);
+        if (goods == null) {
+            throw new ResourcesNotFountException("待审核商品不存在");
+        }
+
+        goods.setIsApproved(isApproved ? 1 : 0);
+
+        return goodsMapper.update(goods, new LambdaQueryWrapper<Goods>().eq(Goods::getId, goodId)) == 1;
     }
 
     @Override
