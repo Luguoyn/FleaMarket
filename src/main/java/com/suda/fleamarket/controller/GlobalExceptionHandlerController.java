@@ -27,16 +27,16 @@ public class GlobalExceptionHandlerController {
     @ResponseStatus(code = HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(JWTVerificationException.class)
     public ResultBody jwtVerificationExceptionHandler(HttpServletRequest request, JWTVerificationException e) {
-        return ResultBody.error(HttpStatus.UNAUTHORIZED).setMessage("token失效").setData(e.getClass());
+        return ResultBody.error(HttpStatus.UNAUTHORIZED).setMessage(e.getMessage()).setData(e.getClass());
     }
 
     /**
      * 请求异常
      */
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    @ExceptionHandler({HttpRequestMethodNotSupportedException.class, IllegalArgumentException.class})
     public ResultBody httpRequestMethodNotSupportedExceptionHandler(HttpServletRequest request, HttpRequestMethodNotSupportedException e) {
-        return ResultBody.error(HttpStatus.BAD_REQUEST).setMessage("请求有误").setData(e.getClass());
+        return ResultBody.error(HttpStatus.BAD_REQUEST).setMessage(e.getMessage()).setData(e.getClass());
     }
 
     /**
@@ -65,7 +65,7 @@ public class GlobalExceptionHandlerController {
     @ExceptionHandler(Exception.class)
     public ResultBody exceptionHandler(HttpServletRequest request, Exception e) {
         e.printStackTrace();
-        return ResultBody.error(HttpStatus.INTERNAL_SERVER_ERROR).setData(e.getClass());
+        return ResultBody.error(HttpStatus.INTERNAL_SERVER_ERROR).setMessage(e.getMessage()).setData(e.getClass());
     }
 
 

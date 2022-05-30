@@ -7,6 +7,7 @@ import com.suda.fleamarket.service.UserService;
 import com.suda.fleamarket.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import java.util.UUID;
 
@@ -23,6 +24,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 
     @Override
     public User createNewUser(User user) {
+        Assert.isNull(userMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getName, user.getName())), "用户已存在");
         userMapper.insert(user);
         return userMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getName, user.getName()));
     }
@@ -30,6 +32,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     @Override
     public User createNewUser() {
         return createNewUser(User.builder().name(String.valueOf(UUID.randomUUID())).build());
+    }
+
+    @Override
+    public boolean updateUser(User user) {
+        User old = userMapper.selectById(user.getId());
+        Assert.notNull(old, "用户不存在");
+        user.setAuthority(old.getAuthority());
+        return userMapper.updateById(user) == 1;
     }
 }
 

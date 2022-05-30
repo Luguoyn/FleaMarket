@@ -1,9 +1,9 @@
 package com.suda.fleamarket.controller;
 
 import com.suda.fleamarket.anno.CurrentUserId;
+import com.suda.fleamarket.dto.UserDTO;
 import com.suda.fleamarket.entity.User;
 import com.suda.fleamarket.exception.status404.ResourcesNotFountException;
-import com.suda.fleamarket.exception.status500.UnsuccessfulOperationException;
 import com.suda.fleamarket.http.ResultBody;
 import com.suda.fleamarket.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class UserController {
         if (user == null) {
             throw new ResourcesNotFountException("用户不存在");
         }
-        return ResultBody.success().setData(user);
+        return ResultBody.success().setData(UserDTO.getFromUser(user));
     }
 
     /**
@@ -44,12 +44,9 @@ public class UserController {
      * 更新user信息
      */
     @PostMapping("/update")
-    public ResultBody updateUserInfo(@CurrentUserId Long currentUserId, @Valid @RequestBody User user) {
+    public ResultBody updateUserInfo(@CurrentUserId Long currentUserId, @Valid @RequestBody UserDTO userDTO) {
+        User user = userDTO.toUser();
         user.setId(currentUserId);
-        boolean flag = userService.saveOrUpdate(user);
-        if (!flag) {
-            throw new UnsuccessfulOperationException("更新用户信息失败");
-        }
-        return ResultBody.success();
+        return ResultBody.success().setData(userService.updateById(user));
     }
 }
