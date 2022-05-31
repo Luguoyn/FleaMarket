@@ -1,14 +1,12 @@
 package com.suda.fleamarket.controller;
 
+import com.suda.fleamarket.dto.UserDTO;
 import com.suda.fleamarket.http.ResultBody;
 import com.suda.fleamarket.service.AdminService;
 import com.suda.fleamarket.service.GoodsService;
 import com.suda.fleamarket.utils.DataUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/admin")
@@ -47,5 +45,10 @@ public class AdminController {
     @PostMapping("/anti-approve/{goodId}")
     public ResultBody antiApprove(@PathVariable Long goodId) {
         return ResultBody.success().setData(adminService.setApproved(goodId, false));
+    }
+
+    @PostMapping("/authority")
+    public ResultBody authority(@RequestBody UserDTO userDTO) {
+        return ResultBody.success().setData(adminService.setAuthority(userDTO.getUserId(), userDTO.getAuthority()));
     }
 }

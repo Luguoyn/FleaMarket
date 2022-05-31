@@ -1,6 +1,7 @@
 package com.suda.fleamarket.service;
 
 import com.suda.fleamarket.entity.Goods;
+import com.suda.fleamarket.enums.Authority;
 
 import java.util.List;
 
@@ -18,5 +19,5 @@ public interface AdminService {
 
     boolean setApproved(Long goodId, boolean isApproved);
 
-    //TODO 添加修改用户权限的功能
+    boolean setAuthority(Long userId, Authority authority);
 }
