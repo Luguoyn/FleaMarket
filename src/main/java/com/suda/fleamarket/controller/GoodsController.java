@@ -94,9 +94,9 @@ public class GoodsController {
     /**
      * 删除货物
      */
-    @PostMapping("/delete/{id}")
-    public ResultBody deleteGoods(@CurrentUserId Long currentUserId, @PathVariable Long id) {
-        return ResultBody.success().setData(goodsService.removeByIdAndUserId(id, currentUserId));
+    @PostMapping("/delete/{goodId}")
+    public ResultBody deleteGoods(@CurrentUserId Long currentUserId, @PathVariable Long goodId) {
+        return ResultBody.success().setData(goodsService.removeByIdAndUserId(goodId, currentUserId));
     }
 
     /**
@@ -104,6 +104,9 @@ public class GoodsController {
      */
     @PostMapping("/update")
     public ResultBody updateGoods(@CurrentUserId Long currentUserId, @RequestBody @Valid GoodsDTO goodsDTO) {
+        Assert.notEmpty(goodsDTO.getName(), "商品名称不能为空");
+        Assert.notNull(goodsDTO.getRemainingQuantity(), "商品余量不能为空");
+        Assert.notNull(goodsDTO.getPrice(), "商品价格不能为空");
         return ResultBody.success().setData(goodsService.saveByUserId(goodsDTO.toEntity(), currentUserId));
     }
 

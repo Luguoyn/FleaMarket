@@ -1,6 +1,7 @@
 package com.suda.fleamarket.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Assert;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.suda.fleamarket.entity.User;
 import com.suda.fleamarket.exception.status400.UserAlreadyExistException;
@@ -9,7 +10,6 @@ import com.suda.fleamarket.service.UserService;
 import com.suda.fleamarket.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 
 import java.util.UUID;
 
@@ -40,6 +40,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 
     @Override
     public boolean save(Long userId, User user) {
+        Assert.notEmpty(user.getName(), "用户名不能为空");
+
+        User someone = userMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getName, user.getName()));
+
+        if (someone != null && !someone.getId().equals(userId) && someone.getName().equals(user.getName())) {
+            throw new UserAlreadyExistException("用户已存在");
+
+        }
+
         User old = userMapper.selectById(userId);
         if (old == null) {
             throw new ResourcesNotFountException("用户不存在");

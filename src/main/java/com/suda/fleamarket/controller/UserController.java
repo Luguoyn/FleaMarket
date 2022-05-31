@@ -29,7 +29,7 @@ public class UserController {
         if (user == null) {
             throw new ResourcesNotFountException("用户不存在");
         }
-        return ResultBody.success().setData(UserDTO.getFromEntity(user));
+        return ResultBody.success().setData(user);
     }
 
     /**

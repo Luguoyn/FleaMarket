@@ -19,16 +19,15 @@ import java.util.Date;
 public class GoodsDTO implements FMDTO<Goods> {
 
     private Long goodId;
+
     private Long userId;
-    @NotBlank(message = "商品名称不能为空")
+
     private String name;
     private Date releaseTime;
 
-    @NotNull(message = "商品的余量不能为空")
     @Positive(message = "余量必须为正")
     private Integer remainingQuantity;
 
-    @NotNull(message = "商品的价格不能为空")
     private BigDecimal price;
     private String picture;
     private String description = "暂无描述";

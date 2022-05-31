@@ -2,16 +2,12 @@ package com.suda.fleamarket.controller;
 
 import com.suda.fleamarket.anno.CurrentUserId;
 import com.suda.fleamarket.dto.SecurityDTO;
-import com.suda.fleamarket.entity.Security;
 import com.suda.fleamarket.http.ResultBody;
 import com.suda.fleamarket.service.SecurityService;
 import com.suda.fleamarket.utils.JWTUtils;
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
 
 
 @RestController
