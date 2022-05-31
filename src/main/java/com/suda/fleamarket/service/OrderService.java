@@ -11,5 +11,11 @@ import java.util.List;
 * @createDate 2022-05-23 18:58:09
 */
 public interface OrderService extends IService<Order> {
+    boolean save(Long userId, Long goodId, Integer amount);
 
+    boolean remove(Long userId, Long id);
+
+    List<Order> listByUser(Long userId);
+
+    boolean confirm(Long userId, Long id);
 }
