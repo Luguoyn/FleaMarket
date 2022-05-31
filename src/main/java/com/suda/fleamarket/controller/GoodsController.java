@@ -1,6 +1,8 @@
 package com.suda.fleamarket.controller;
 
+import com.baomidou.mybatisplus.core.toolkit.Assert;
 import com.suda.fleamarket.anno.CurrentUserId;
+import com.suda.fleamarket.dto.GoodsDTO;
 import com.suda.fleamarket.entity.Goods;
 import com.suda.fleamarket.exception.status404.ResourcesNotFountException;
 import com.suda.fleamarket.http.ResultBody;
@@ -80,12 +82,13 @@ public class GoodsController {
      * 发布货物
      */
     @PostMapping("/publish")
-    public ResultBody publishGoods(@CurrentUserId Long currentUserId, @RequestBody @Valid Goods goods) {
-        goods.setId(null);
-        goods.setIsApproved(0);
-        goods.setUserId(currentUserId);
-        goods.setIsDeleted(0);
-        return ResultBody.success().setData(goodsService.save(goods));
+    public ResultBody publishGoods(@CurrentUserId Long currentUserId, @RequestBody @Valid GoodsDTO goodsDTO) {
+        return ResultBody.success().setData(goodsService.save(
+                Goods.builder()
+                        .userId(currentUserId).price(goodsDTO.getPrice()).description(goodsDTO.getDescription())
+                        .remainingQuantity(goodsDTO.getRemainingQuantity()).releaseTime(goodsDTO.getReleaseTime())
+                        .picture(goodsDTO.getPicture())
+                        .build()));
     }
 
     /**

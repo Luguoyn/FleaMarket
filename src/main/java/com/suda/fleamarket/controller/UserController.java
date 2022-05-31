@@ -29,7 +29,7 @@ public class UserController {
         if (user == null) {
             throw new ResourcesNotFountException("用户不存在");
         }
-        return ResultBody.success().setData(UserDTO.getFromUser(user));
+        return ResultBody.success().setData(UserDTO.getFromEntity(user));
     }
 
     /**
@@ -45,8 +45,6 @@ public class UserController {
      */
     @PostMapping("/update")
     public ResultBody updateUserInfo(@CurrentUserId Long currentUserId, @Valid @RequestBody UserDTO userDTO) {
-        User user = userDTO.toUser();
-        user.setId(currentUserId);
-        return ResultBody.success().setData(userService.updateById(user));
+        return ResultBody.success().setData(userService.save(currentUserId, userDTO.toEntity()));
     }
 }

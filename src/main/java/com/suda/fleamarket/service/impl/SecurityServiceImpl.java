@@ -1,5 +1,6 @@
 package com.suda.fleamarket.service.impl;
 
+import com.baomidou.mybatisplus.core.toolkit.Assert;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.suda.fleamarket.entity.Security;
 import com.suda.fleamarket.entity.User;
@@ -43,8 +44,11 @@ public class SecurityServiceImpl extends ServiceImpl<SecurityMapper, Security>
 
     @Override
     public Security register(String loginName, String password) {
+        Assert.notEmpty(loginName, "用户名不能为空");
+        Assert.notEmpty(password, "密码不能为空");
+
         if (securityMapper.selectOneByLoginName(loginName) != null) {
-            throw new UserAlreadyExistException("账号名已存在");
+            throw new UserAlreadyExistException("账号已存在");
         }
 
         User user = userService.createNewUser();
@@ -58,6 +62,7 @@ public class SecurityServiceImpl extends ServiceImpl<SecurityMapper, Security>
 
     @Override
     public Security updatePassword(Long userId, String oldPassword, String newPassword) {
+        Assert.notEmpty(newPassword, "新密码不能为空");
         Security security = securityMapper.selectOneByUserId(userId);
 
         if (!security.getPassword().equals(MD5Utils.md5WithSalt(oldPassword))) {

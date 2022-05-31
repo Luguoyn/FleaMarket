@@ -3,6 +3,8 @@ package com.suda.fleamarket.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.suda.fleamarket.entity.User;
+import com.suda.fleamarket.exception.status400.UserAlreadyExistException;
+import com.suda.fleamarket.exception.status404.ResourcesNotFountException;
 import com.suda.fleamarket.service.UserService;
 import com.suda.fleamarket.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +26,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 
     @Override
     public User createNewUser(User user) {
-        Assert.isNull(userMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getName, user.getName())), "用户已存在");
+        if (userMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getName, user.getName())) != null) {
+            throw new UserAlreadyExistException("用户已存在");
+        }
         userMapper.insert(user);
         return userMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getName, user.getName()));
     }
@@ -35,10 +39,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     }
 
     @Override
-    public boolean updateUser(User user) {
-        User old = userMapper.selectById(user.getId());
-        Assert.notNull(old, "用户不存在");
+    public boolean save(Long userId, User user) {
+        User old = userMapper.selectById(userId);
+        if (old == null) {
+            throw new ResourcesNotFountException("用户不存在");
+        }
         user.setAuthority(old.getAuthority());
+        user.setId(userId);
         return userMapper.updateById(user) == 1;
     }
 }

@@ -1,7 +1,7 @@
 package com.suda.fleamarket.controller;
 
 import com.suda.fleamarket.anno.CurrentUserId;
-import com.suda.fleamarket.entity.Star;
+import com.suda.fleamarket.dto.StarDTO;
 import com.suda.fleamarket.http.ResultBody;
 import com.suda.fleamarket.service.StarService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +24,12 @@ public class StarController {
     }
 
     @PostMapping("/add")
-    ResultBody add(@CurrentUserId Long currentUserId, @RequestBody @Valid Star star) {
-        return ResultBody.success().setData(starService.save(currentUserId, star.getGoodId()));
+    ResultBody add(@CurrentUserId Long currentUserId, @RequestBody @Valid StarDTO starDTO) {
+        return ResultBody.success().setData(starService.save(currentUserId, starDTO.getGoodId()));
     }
 
     @PostMapping("/remove")
-    ResultBody remove(@CurrentUserId Long currentUserId, @RequestBody @Valid Star star) {
-        return ResultBody.success().setData(starService.remove(currentUserId, star.getGoodId()));
+    ResultBody remove(@CurrentUserId Long currentUserId, @RequestBody @Valid StarDTO starDTO) {
+        return ResultBody.success().setData(starService.remove(currentUserId, starDTO.getGoodId()));
     }
 }

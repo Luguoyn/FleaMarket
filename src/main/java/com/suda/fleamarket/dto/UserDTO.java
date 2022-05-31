@@ -16,7 +16,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserDTO {
+public class UserDTO implements FMDTO<User> {
     private Long userId;
     private String name;
     private Authority authority;
@@ -29,7 +29,7 @@ public class UserDTO {
     @Email(message = "错误的邮箱格式")
     private String email;
 
-    private UserDTO(User user) {
+    public UserDTO(User user) {
         this.userId = user.getId();
         this.name = user.getName();
         this.authority = user.getAuthority();
@@ -40,11 +40,12 @@ public class UserDTO {
         this.email = user.getEmail();
     }
 
-    public static UserDTO getFromUser(User user) {
-        return new UserDTO(user);
+    public static UserDTO getFromEntity(User entity) {
+        return new UserDTO(entity);
     }
 
-    public User toUser() {
+    @Override
+    public User toEntity() {
         return User.builder()
                 .id(userId).name(name).address(address)
                 .authority(authority).birthday(birthday)

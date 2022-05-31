@@ -1,6 +1,7 @@
 package com.suda.fleamarket.controller;
 
 import com.suda.fleamarket.anno.CurrentUserId;
+import com.suda.fleamarket.dto.SecurityDTO;
 import com.suda.fleamarket.entity.Security;
 import com.suda.fleamarket.http.ResultBody;
 import com.suda.fleamarket.service.SecurityService;
@@ -21,17 +22,17 @@ public class SecurityController {
 
     // 这个方法不会被拦下来
     @PostMapping("/login")
-    public ResultBody login(@RequestBody @Valid Security security) {
+    public ResultBody login(@RequestBody SecurityDTO securityDTO) {
         return ResultBody.success()
                 .setMessage("登录成功")
-                .setData(JWTUtils.getToken(securityService.login(security.getLoginName(), security.getPassword())));
+                .setData(JWTUtils.getToken(securityService.login(securityDTO.getLoginName(), securityDTO.getPassword())));
     }
 
     @PostMapping("/register")
-    public ResultBody register(@RequestBody @Valid Security security) {
+    public ResultBody register(@RequestBody SecurityDTO securityDTO) {
         return ResultBody.success()
                 .setMessage("注册成功")
-                .setData(JWTUtils.getToken(securityService.register(security.getLoginName(), security.getPassword())));
+                .setData(JWTUtils.getToken(securityService.register(securityDTO.getLoginName(), securityDTO.getPassword())));
     }
 
     /**
@@ -39,26 +40,16 @@ public class SecurityController {
      */
     @PostMapping("/update")
     public ResultBody updatePassword(@CurrentUserId Long currentUserId,
-                                     @RequestBody @Valid PasswordChanger passwordChanger) {
+                                     @RequestBody SecurityDTO securityDTO) {
         return ResultBody.success()
                 .setMessage("密码修改成功")
                 .setData(JWTUtils.getToken(securityService.updatePassword(
-                        currentUserId, passwordChanger.getOldPassword(), passwordChanger.getNewPassword())));
+                        currentUserId, securityDTO.getPassword(), securityDTO.getNewPassword())));
     }
 
     // 如果没有登陆的话, 这个方法应该会被拦下来
     @PostMapping("/hello")
     public ResultBody hello() {
         return ResultBody.success().setData("你好");
-    }
-
-
-    @Data
-    private static class PasswordChanger {
-        @NotBlank(message = "旧密码不能为空")
-        private String oldPassword;
-
-        @NotBlank(message = "新密码不能为空")
-        private String newPassword;
     }
 }

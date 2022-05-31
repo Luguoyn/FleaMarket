@@ -13,7 +13,7 @@ public interface UserService extends IService<User> {
 
     User createNewUser();
 
-    boolean updateUser(User user);
+    boolean save(Long userId, User user);
 
 
 }
