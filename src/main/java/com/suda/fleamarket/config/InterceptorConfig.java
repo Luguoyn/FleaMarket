@@ -57,6 +57,10 @@ public class InterceptorConfig implements WebMvcConfigurer {
         // 商家拦截器
         registry.addInterceptor(sellerInterceptor())
                 .addPathPatterns("/goods/publish");
+
+        // 客户拦截器
+        registry.addInterceptor(customerInterceptor())
+                .addPathPatterns("/order/**");
     }
 
     /**
@@ -73,7 +77,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public CurrentUserIdHandlerMethodArgResolver currentUserIdHandlerMethodArgResolver(){
+    public CurrentUserIdHandlerMethodArgResolver currentUserIdHandlerMethodArgResolver() {
         return new CurrentUserIdHandlerMethodArgResolver();
     }
 
