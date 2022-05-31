@@ -5,6 +5,7 @@ import com.suda.fleamarket.anno.CurrentUserId;
 import com.suda.fleamarket.dto.GoodsDTO;
 import com.suda.fleamarket.entity.Goods;
 import com.suda.fleamarket.exception.status404.ResourcesNotFountException;
+import com.suda.fleamarket.exception.status406.IllegalOperationException;
 import com.suda.fleamarket.http.ResultBody;
 import com.suda.fleamarket.service.GoodsService;
 import com.suda.fleamarket.utils.DataUtils;
@@ -36,6 +37,9 @@ public class GoodsController {
         Goods goods = goodsService.getById(id);
         if (goods == null) {
             throw new ResourcesNotFountException("货物不存在");
+        }
+        if (goods.getIsApproved() == 0) {
+            throw new IllegalOperationException("商品未经过审核");
         }
         return ResultBody.success().setData(goods);
     }

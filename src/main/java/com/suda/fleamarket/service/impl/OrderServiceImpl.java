@@ -40,6 +40,10 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order>
             throw new ResourcesNotFountException("商品不存在");
         }
 
+        if (goods.getIsApproved() == 0) {
+            throw new IllegalOperationException("商品未经过审核");
+        }
+
         if (goods.getRemainingQuantity() < amount) {
             throw new FMBadRequestException("商品余量不足");
         }
