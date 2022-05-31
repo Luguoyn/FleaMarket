@@ -3,6 +3,7 @@ package com.suda.fleamarket.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.suda.fleamarket.dto.GoodsDTO;
 import com.suda.fleamarket.entity.Goods;
 import com.suda.fleamarket.exception.status404.ResourcesNotFountException;
 import com.suda.fleamarket.exception.status406.IllegalOperationException;
@@ -165,6 +166,17 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods>
         goods.setIsApproved(0);
 
         return goodsMapper.updateById(goods) == 1;
+    }
+
+    @Override
+    public List<Goods> select(GoodsDTO goodsDTO) {
+        return goodsMapper.selectList(new LambdaQueryWrapper<Goods>()
+                .eq(Goods::getIsApproved, 1)
+                .like(goodsDTO.getName() != null, Goods::getName, goodsDTO.getName())
+                .eq(goodsDTO.getUserId() != null, Goods::getUserId, goodsDTO.getUserId())
+                .ge(goodsDTO.getMinPrice() != null, Goods::getPrice, goodsDTO.getMinPrice())
+                .le(goodsDTO.getMaxPrice() != null, Goods::getPrice, goodsDTO.getMaxPrice())
+        );
     }
 }
 

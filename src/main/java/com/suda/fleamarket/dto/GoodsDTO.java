@@ -34,6 +34,9 @@ public class GoodsDTO implements FMDTO<Goods> {
     private String description = "暂无描述";
     private Integer isApproved = 0;
 
+    private BigDecimal maxPrice;
+    private BigDecimal minPrice;
+
     public GoodsDTO(Goods goods) {
         this.goodId = goods.getId();
         this.userId = goods.getUserId();

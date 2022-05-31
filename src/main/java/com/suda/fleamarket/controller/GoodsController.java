@@ -103,7 +103,12 @@ public class GoodsController {
      * 修改货物信息
      */
     @PostMapping("/update")
-    public ResultBody updateGoods(@CurrentUserId Long currentUserId, @RequestBody @Valid Goods goods) {
-        return ResultBody.success().setData(goodsService.saveByUserId(goods, currentUserId));
+    public ResultBody updateGoods(@CurrentUserId Long currentUserId, @RequestBody @Valid GoodsDTO goodsDTO) {
+        return ResultBody.success().setData(goodsService.saveByUserId(goodsDTO.toEntity(), currentUserId));
+    }
+
+    @PostMapping("/select")
+    public ResultBody selectGoods(@RequestBody @Valid GoodsDTO goodsDTO) {
+        return ResultBody.success().setData(goodsService.select(goodsDTO));
     }
 }

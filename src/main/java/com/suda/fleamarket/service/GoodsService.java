@@ -1,5 +1,6 @@
 package com.suda.fleamarket.service;
 
+import com.suda.fleamarket.dto.GoodsDTO;
 import com.suda.fleamarket.entity.Goods;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -38,4 +39,6 @@ public interface GoodsService extends IService<Goods> {
     boolean removeByIdAndUserId(Long id, Long userId);
 
     boolean saveByUserId(Goods goods, Long userId);
+
+    List<Goods> select(GoodsDTO goodsDTO);
 }
