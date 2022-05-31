@@ -22,7 +22,7 @@ public class OrderController {
         return ResultBody.success().setData(orderService.listByUser(currentUserId));
     }
 
-    @PostMapping("/Place")
+    @PostMapping("/place")
     public ResultBody place(@CurrentUserId Long currentUserId, @RequestBody OrderDTO orderDTO) {
         return ResultBody.success().setData(orderService.save(currentUserId, orderDTO.getGoodId(), orderDTO.getAmount()));
     }
