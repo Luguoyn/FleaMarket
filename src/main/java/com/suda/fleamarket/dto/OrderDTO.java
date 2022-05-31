@@ -16,7 +16,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class OrderDTO implements FMDTO<Order> {
 
-    private Long id;
+    private Long orderId;
     private Long userId;
     private Long goodId;
     private Date createTime;
@@ -25,7 +25,7 @@ public class OrderDTO implements FMDTO<Order> {
     private Integer isFinished;
 
     public OrderDTO(Order order) {
-        this.id = order.getId();
+        this.orderId = order.getId();
         this.userId = order.getUserId();
         this.goodId = order.getGoodId();
         this.createTime = order.getCreateTime();
@@ -41,7 +41,7 @@ public class OrderDTO implements FMDTO<Order> {
     @Override
     public Order toEntity() {
         return Order.builder()
-                .id(id).userId(userId).goodId(goodId)
+                .id(orderId).userId(userId).goodId(goodId)
                 .createTime(createTime).amount(amount)
                 .price(price).isFinished(isFinished)
                 .build();

@@ -11,12 +11,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class StarDTO implements FMDTO<Star> {
-    private Long id;
+    private Long starId;
     private Long goodId;
     private Long userId;
 
     public StarDTO(Star star) {
-        this.id = star.getId();
+        this.starId = star.getId();
         this.userId = star.getUserId();
         this.goodId = star.getGoodId();
     }
@@ -27,6 +27,6 @@ public class StarDTO implements FMDTO<Star> {
 
     @Override
     public Star toEntity() {
-        return Star.builder().goodId(goodId).userId(userId).id(id).build();
+        return Star.builder().goodId(goodId).userId(userId).id(starId).build();
     }
 }

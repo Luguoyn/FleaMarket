@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class SecurityDTO implements FMDTO<Security> {
-    private Long id;
+    private Long securityId;
     private String loginName;
     private String password;
 
@@ -19,7 +19,7 @@ public class SecurityDTO implements FMDTO<Security> {
     private Long userId;
 
     public SecurityDTO(Security security) {
-        this.id = security.getId();
+        this.securityId = security.getId();
         this.userId = security.getUserId();
         this.loginName = security.getLoginName();
         this.password = security.getPassword();
@@ -31,6 +31,6 @@ public class SecurityDTO implements FMDTO<Security> {
 
     @Override
     public Security toEntity() {
-        return Security.builder().loginName(loginName).password(password).userId(userId).id(id).build();
+        return Security.builder().loginName(loginName).password(password).userId(userId).id(securityId).build();
     }
 }

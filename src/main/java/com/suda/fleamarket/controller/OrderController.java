@@ -29,11 +29,11 @@ public class OrderController {
 
     @PostMapping("/cancel")
     public ResultBody cancel(@CurrentUserId Long currentUserId, @RequestBody OrderDTO orderDTO) {
-        return ResultBody.success().setData(orderService.remove(currentUserId, orderDTO.getId()));
+        return ResultBody.success().setData(orderService.remove(currentUserId, orderDTO.getOrderId()));
     }
 
     @PostMapping("/confirm")
     public ResultBody confirm(@CurrentUserId Long currentUserId, @RequestBody OrderDTO orderDTO) {
-        return ResultBody.success().setData(orderService.confirm(currentUserId, orderDTO.getId()));
+        return ResultBody.success().setData(orderService.confirm(currentUserId, orderDTO.getOrderId()));
     }
 }
