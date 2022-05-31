@@ -98,7 +98,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order>
 
     @Override
     public List<Order> listByUser(Long userId) {
-        return orderMapper.selectList(new LambdaQueryWrapper<Order>().eq(Order::getUserId, userId));
+        return orderMapper.selectList(new LambdaQueryWrapper<Order>().eq(Order::getUserId, userId).orderByDesc(Order::getCreateTime));
     }
 
     @Override
