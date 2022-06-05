@@ -39,7 +39,7 @@ public class JWTUtils {
     }
 
     public static Long getUserIdFromToken(String token){
-        return Long.parseLong(verifyToken(token).getClaim("id").asString());
+        return Long.parseLong(verifyToken(token).getClaim("userId").asString());
     }
 
 }

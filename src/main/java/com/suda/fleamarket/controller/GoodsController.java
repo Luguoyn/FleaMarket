@@ -89,6 +89,7 @@ public class GoodsController {
     public ResultBody publishGoods(@CurrentUserId Long currentUserId, @RequestBody @Valid GoodsDTO goodsDTO) {
         return ResultBody.success().setData(goodsService.save(
                 Goods.builder()
+                        .name(goodsDTO.getName())
                         .userId(currentUserId).price(goodsDTO.getPrice()).description(goodsDTO.getDescription())
                         .remainingQuantity(goodsDTO.getRemainingQuantity()).releaseTime(goodsDTO.getReleaseTime())
                         .picture(goodsDTO.getPicture())

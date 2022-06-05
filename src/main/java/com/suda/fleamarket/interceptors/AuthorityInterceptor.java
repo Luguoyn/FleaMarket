@@ -22,8 +22,6 @@ public class AuthorityInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        System.out.println(authority.getText());
-
         if(userService.getById(JWTUtils.getUserIdFromToken(request.getHeader("token"))).getAuthority().getVal() >= authority.getVal()){
             return true;
         }
