@@ -174,6 +174,7 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods>
                 .eq(Goods::getIsApproved, 1)
                 .like(goodsDTO.getName() != null, Goods::getName, goodsDTO.getName())
                 .eq(goodsDTO.getUserId() != null, Goods::getUserId, goodsDTO.getUserId())
+                .eq(goodsDTO.getType() != null, Goods::getType, goodsDTO.getType())
                 .ge(goodsDTO.getMinPrice() != null, Goods::getPrice, goodsDTO.getMinPrice())
                 .le(goodsDTO.getMaxPrice() != null, Goods::getPrice, goodsDTO.getMaxPrice())
         );

@@ -33,6 +33,8 @@ public class GoodsDTO implements FMDTO<Goods> {
     private String description = "暂无描述";
     private Integer isApproved = 0;
 
+    private String type;
+
     private BigDecimal maxPrice;
     private BigDecimal minPrice;
 
@@ -46,6 +48,7 @@ public class GoodsDTO implements FMDTO<Goods> {
         this.picture = goods.getPicture();
         this.releaseTime = goods.getReleaseTime();
         this.remainingQuantity = goods.getRemainingQuantity();
+        this.type = goods.getType();
     }
 
     public static GoodsDTO getFromEntity(Goods entity) {
@@ -55,7 +58,7 @@ public class GoodsDTO implements FMDTO<Goods> {
     @Override
     public Goods toEntity() {
         return Goods.builder()
-                .id(goodId).userId(userId).description(description)
+                .id(goodId).userId(userId).description(description).type(type)
                 .isApproved(isApproved).name(name).picture(picture).price(price)
                 .releaseTime(releaseTime).remainingQuantity(remainingQuantity)
                 .build();

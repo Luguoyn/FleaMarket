@@ -93,6 +93,7 @@ public class GoodsController {
                         .userId(currentUserId).price(goodsDTO.getPrice()).description(goodsDTO.getDescription())
                         .remainingQuantity(goodsDTO.getRemainingQuantity()).releaseTime(goodsDTO.getReleaseTime())
                         .picture(goodsDTO.getPicture())
+                        .type(goodsDTO.getType())
                         .build()));
     }
 

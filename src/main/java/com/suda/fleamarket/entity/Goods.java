@@ -16,10 +16,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 /**
- * 
  * @TableName goods
  */
-@TableName(value ="goods")
+@TableName(value = "goods")
 @Data
 @Builder
 @AllArgsConstructor
@@ -74,6 +73,11 @@ public class Goods implements Serializable {
      * 是否已审核, 0为否, 1为是
      */
     private Integer isApproved = 0;
+
+    /**
+     * 商品的种类
+     */
+    private String type;
 
     /**
      * 是否被逻辑删除, 0为否, 1为是
