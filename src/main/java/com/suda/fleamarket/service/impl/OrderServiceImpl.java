@@ -106,6 +106,20 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order>
     }
 
     @Override
+    public List<Order> listByGoodId(Long userId, Long goodId) {
+        Goods goods = goodsMapper.selectById(goodId);
+        if (goods == null) {
+            throw new ResourcesNotFountException("商品不存在");
+        }
+
+        if (!goods.getUserId().equals(userId)) {
+            throw new IllegalOperationException("只能查看自己发布的商品的订单");
+        }
+
+        return orderMapper.selectList(new LambdaQueryWrapper<Order>().eq(Order::getGoodId, goodId));
+    }
+
+    @Override
     public boolean confirm(Long userId, Long id) {
         Order order = orderMapper.selectById(id);
         if (order == null) {

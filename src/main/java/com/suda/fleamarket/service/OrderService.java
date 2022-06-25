@@ -17,5 +17,7 @@ public interface OrderService extends IService<Order> {
 
     List<Order> listByUser(Long userId);
 
+    List<Order> listByGoodId(Long userId, Long goodId);
+
     boolean confirm(Long userId, Long id);
 }
