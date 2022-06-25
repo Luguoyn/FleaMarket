@@ -25,6 +25,9 @@ public class StarController {
 
     @PostMapping("/add")
     ResultBody add(@CurrentUserId Long currentUserId, @RequestBody @Valid StarDTO starDTO) {
+        System.out.println("currentUserId::"+currentUserId);
+        System.out.println("starDTO"+starDTO);
+        System.out.println("==========================正在运行============================================");
         return ResultBody.success().setData(starService.save(currentUserId, starDTO.getGoodId()));
     }
 
