@@ -39,7 +39,7 @@ public class GoodsDTO implements FMDTO<Goods> {
     private BigDecimal minPrice;
 
     public GoodsDTO(Goods goods) {
-        this.goodId = Long.valueOf(goods.getId());
+        this.goodId = goods.getId();
         this.userId = goods.getUserId();
         this.name = goods.getName();
         this.isApproved = goods.getIsApproved();
