@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.*;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.suda.fleamarket.enums.Authority;
 import com.suda.fleamarket.enums.Gander;
 import lombok.AllArgsConstructor;
@@ -30,6 +31,7 @@ public class User implements Serializable {
      */
     @TableId
     @NotNull(message = "id不能为空")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long id;
 
     /**
