@@ -17,10 +17,9 @@ import org.hibernate.validator.constraints.Range;
 import javax.validation.constraints.*;
 
 /**
- * 
  * @TableName user
  */
-@TableName(value ="user")
+@TableName(value = "user")
 @Data
 @Builder
 @AllArgsConstructor
@@ -41,7 +40,7 @@ public class User implements Serializable {
     private String name;
 
     /**
-     *  用户的权限, 用数字代替, 默认为最低权限
+     * 用户的权限, 用数字代替, 默认为最低权限
      */
     private Authority authority;
 
@@ -64,7 +63,7 @@ public class User implements Serializable {
     /**
      * 用户的电话
      */
-    @Pattern(regexp = "^((13\\d)|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\\d{8}$",
+    @Pattern(regexp = "^((13\\d)|(14[5-9])|(15([0-3]|[5-9]))|(16[5-7])|(17[0-8])|(18([0-3]|[5-9])))\\d{8}$",
             message = "错误的手机号码格式")
     private String telephone;
 
