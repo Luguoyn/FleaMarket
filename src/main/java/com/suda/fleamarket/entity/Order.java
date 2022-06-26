@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,16 +26,19 @@ public class Order implements Serializable {
      * 订单表的id
      */
     @TableId
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long id;
 
     /**
      * 买家的id
      */
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long userId;
 
     /**
      * 购买的商品的id
      */
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long goodId;
 
     /**
