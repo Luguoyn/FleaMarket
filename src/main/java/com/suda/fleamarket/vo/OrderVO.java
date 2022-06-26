@@ -1,6 +1,7 @@
 package com.suda.fleamarket.vo;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.suda.fleamarket.entity.Goods;
 import com.suda.fleamarket.entity.Order;
 import com.suda.fleamarket.entity.User;
@@ -18,8 +19,13 @@ import java.util.Date;
 @NoArgsConstructor
 public class OrderVO {
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long orderId;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long userId;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long goodId;
     private Date createTime;
     private Integer amount;
